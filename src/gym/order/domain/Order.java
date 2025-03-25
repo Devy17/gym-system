@@ -1,5 +1,10 @@
 package gym.order.domain;
 
+import gym.employee.domain.Employee;
+import gym.membership.domain.Membership;
+import gym.product.domain.Product;
+import gym.user.domain.User;
+
 import java.time.LocalDate;
 
 public class Order {
@@ -8,6 +13,43 @@ public class Order {
     private int membershipId;
     private int productId;
     private LocalDate orderDate;
+
+    private User user = null;
+    private Membership membership = null;
+    private Product product = null;
+    private Employee employee = null;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Membership getMembership() {
+        return membership;
+    }
+
+    public void setMembership(Membership membership) {
+        this.membership = membership;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Order(int orderId, int userId, int membershipId, int productId, LocalDate orderDate) {
         this.orderId = orderId;
@@ -64,4 +106,5 @@ public class Order {
     public void setOrderDate(LocalDate orderDate) {
         this.orderDate = orderDate;
     }
+
 }
