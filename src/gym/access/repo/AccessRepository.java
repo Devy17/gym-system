@@ -39,7 +39,7 @@ public class AccessRepository {
     }
 
     public boolean checkUserStatus(User user) {
-        String sql = "SELECT * FROM status s JOIN user u ON s.user_id = u.user_id WHERE s.user_id = ?";
+        String sql = "SELECT * FROM status s JOIN users u ON s.user_id = u.user_id WHERE s.user_id = ?";
         try (Connection conn = DBConnectionManager.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, user.getUserId());
