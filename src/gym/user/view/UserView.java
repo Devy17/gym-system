@@ -4,7 +4,6 @@ import gym.user.domain.User;
 import gym.user.service.UserService;
 
 import java.util.List;
-import java.util.StringTokenizer;
 
 import static common.AppUI.*;
 

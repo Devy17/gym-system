@@ -1,7 +1,5 @@
 package common;
 
-import gym.access.domain.Access;
-import gym.access.view.AccessView;
 import gym.order.view.OrderView;
 import gym.user.view.UserView;
 
@@ -192,7 +190,6 @@ public class AppUI {
                 userOrderMenuScreen();
                 break;
             case 3:
-                AccessView.addAccessView();
                 break;
             case 4:
                 break;
