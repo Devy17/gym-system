@@ -25,13 +25,22 @@ public class UserRepository {
     }
 
     public void Activation() { //회원 활성화 여부
-        String sql = "UPDATE users u JOIN status s ON u.user_id = s.user_id " +
-                "SET u.active = 'N' " +
-                "WHERE s.product_count = 0 AND s.remained_month = 0 ";
+        String userUpdateSql = "UPDATE users u JOIN status s ON u.user_id = s.user_id " +
+                "SET u.user_active = 'N' " +
+                "WHERE s.product_count = 0 AND s.remained_month = 0";
 
-        try(Connection conn = DBConnectionManager.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.executeUpdate();
+        String statusUpdateSql = "UPDATE status SET last_updated = CURRENT_TIMESTAMP " +
+                "WHERE product_count = 0 AND remained_month = 0";
+
+        try (Connection conn = DBConnectionManager.getConnection();
+             PreparedStatement userPstmt = conn.prepareStatement(userUpdateSql);
+             PreparedStatement statusPstmt = conn.prepareStatement(statusUpdateSql)) {
+
+            // 유저 테이블
+            userPstmt.executeUpdate();
+
+            // 상태 테이블
+            statusPstmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();

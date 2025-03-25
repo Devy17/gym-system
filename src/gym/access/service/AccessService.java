@@ -44,9 +44,6 @@ public class AccessService {
 
 
 
-    public void MembershipInformationInput() {  //출입
 
-
-    }
 
 }
