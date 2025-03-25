@@ -5,6 +5,9 @@ import static common.AppUI.wrongNumber;
 
 import gym.membership.domain.Membership;
 import gym.membership.service.MembershipService;
+import gym.product.domain.Product;
+import gym.product.service.ProductService;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -42,13 +45,27 @@ public class OrderView {
         // TODO 여기에 order 테이블에 회원권을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
     }
 
+
+
     public static void purchaseProductView() {
-        // TODO 여기에 상품 조회하는 로직이 들어가야 함. -> product.service에 구현해주세요
-//        System.out.println("\n# 구매하시려는 회원권을 선택해주세요.");
-//        System.out.println("### 1. 3개월");
-//        System.out.println("### 2. 6개월");
-//        System.out.println("### 3. 9개월");
-//        System.out.println("### 4. 12개월");
+        // 상품 목록 가져오기
+        List<Product> productOptions = ProductService.getProductOptions();
+
+        System.out.println("\n=== 상품 목록 ===");
+        if (productOptions.isEmpty()) {
+            System.out.println("등록된 상품이 없습니다.");
+            return;
+        }
+
+        // 상품 정보 출력
+        for (Product product : productOptions) {
+            System.out.println("상품 ID: " + product.getProductId());
+            System.out.println("멤버십 ID: " + product.getMembershipId());
+            System.out.println("상품명: " + product.getProductName());
+            System.out.println("가격: " + product.getPrice());
+            System.out.println("----------------------");
+        }
+
 
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
@@ -64,6 +81,6 @@ public class OrderView {
                 wrongNumber();
                 break;
         }
-        // TODO 여기에 order 테이블에 회원권과 상품을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
     }
+        // TODO 여기에 order 테이블에 회원권과 상품을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
 }

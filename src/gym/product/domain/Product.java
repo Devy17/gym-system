@@ -2,14 +2,12 @@ package gym.product.domain;
 
 public class Product {
     private int productId;
-    private int employeeId;
     private int membershipId;
     private String productName;
     private int price;
 
-    public Product(int productId, int employeeId, int membershipId, String productName, int price) {
+    public Product(int productId, int membershipId, String productName, int price) {
         this.productId = productId;
-        this.employeeId = employeeId;
         this.membershipId = membershipId;
         this.productName = productName;
         this.price = price;
@@ -21,14 +19,6 @@ public class Product {
 
     public void setProductId(int productId) {
         this.productId = productId;
-    }
-
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
     }
 
     public int getMembershipId() {
