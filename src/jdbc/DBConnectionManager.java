@@ -11,17 +11,21 @@ public class DBConnectionManager {
     private static final String USER = "jun1"; // TODO 작성해주세요
     private static final String PASSWORD = "jun1"; // TODO 작성해주세요
 
-    // 정적 초기화자(static initializer)를 사용하여 드라이버 로드
+    // 정적 초기화자를 사용하여 드라이버를 로드
     static {
         try {
-            Class.forName(DRIVER); // 객체를 생성하지 않고 클래스를 강제 구동
-            System.out.println("JDBC 드라이버 강제 구동 완료!");
+            Class.forName(DRIVER);
+//            System.out.println("JDBC 드라이버 강제 구동 완료!");
         } catch (ClassNotFoundException e) {
-            System.out.println("JDBC 드라이버 로드 실패!");
+            System.out.println("JDBC 드라이버 로드 실패.");
             e.printStackTrace();
         }
     }
+
+    // 데이터베이스 접속 객체를 리턴해주는 메서드
+    // 데이터베이스 접속 객체 Connection을 리턴, 예외를 던짐
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+
 }
