@@ -10,6 +10,24 @@ import java.util.List;
 public class MembershipView {
 
     /**
+     * 회원권 조회
+     */
+    public static List<Membership> findMembership() {
+        List<Membership> membershipOptions = MembershipService.getMembershipOptions();
+        for (int i = 1; i <= membershipOptions.size(); i++) {
+            Membership membership = membershipOptions.get(i - 1);
+
+            DecimalFormat formatter = new DecimalFormat("#,###");
+            String formattedPrice = formatter.format(membership.getPrice());
+
+            System.out.println("### " + i + ". "
+                    + membership.getPeriod() + "개월 - " + formattedPrice + "원");
+        }
+
+        return membershipOptions;
+    }
+
+    /**
      * 회원권 종류 추가
      */
     public static void addUserView() {
