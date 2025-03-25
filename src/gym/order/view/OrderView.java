@@ -95,11 +95,6 @@ public class OrderView {
     }
     // TODO 여기에 order 테이블에 회원권과 상품을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
 
-    public static void showOrderInfo(List<Order> orderList) {
-        System.out.println("========== 결제 목록 ==========");
-        for (Order order : orderList) {
-            if (order.getProduct() == null) {
-
     /**
      * 회원 이름이 입력이 되었는지 확인
      */
@@ -170,22 +165,24 @@ public class OrderView {
     /**
      * 회원권 등록
      */
-    private static void purchaseMembership(Scanner sc, int userId, int employeeId) {
-        System.out.println("\n# 구매하시려는 회원권을 선택해주세요.");
-        List<Membership> memberships = MembershipView.findMembershipView();
-        System.out.print("\n구매할 회원권 번호를 입력하세요: ");
-        String selectNumStr = sc.nextLine();
+    private static void purchaseMembership(Scanner sc, int userId, int employeeId){
+                    System.out.println("\n# 구매하시려는 회원권을 선택해주세요.");
+                    List<Membership> memberships = MembershipView.findMembershipView();
+                    System.out.print("\n구매할 회원권 번호를 입력하세요: ");
+                    String selectNumStr = sc.nextLine();
 
-        try {
-            int selectNum = Integer.parseInt(selectNumStr);
+                    try {
+                        int selectNum = Integer.parseInt(selectNumStr);
 
-            if (selectNum >= 1 && selectNum <= memberships.size()) {
-                orderService.purchaseMembership(userId, selectNum, employeeId);
-            } else {
-                System.out.println("# 잘못된 번호입니다. 1부터 " + memberships.size() + "까지의 번호를 입력해주세요.");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("# 숫자만 입력해주세요.");
+                        if (selectNum >= 1 && selectNum <= memberships.size()) {
+                            orderService.purchaseMembership(userId, selectNum, employeeId);
+                        } else {
+                            System.out.println("# 잘못된 번호입니다. 1부터 " + memberships.size() + "까지의 번호를 입력해주세요.");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("# 숫자만 입력해주세요.");
+                    }
+                }
 
     public static void showOrderInfo(List<Order> orderList) {
         System.out.println("========== 결제 목록 ==========");
