@@ -42,4 +42,8 @@ public class UserView {
 
         System.out.println("# 성공적으로 저장되었습니다.");
     }
+
+    public static void accessUserFail() {
+        System.out.println("# 출입에 실패하였습니다.");
+    }
 }

@@ -60,4 +60,17 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+
+    public void updateUserActive(User user, boolean b) {
+        String sql = "UPDATE users SET user_active = ? WHERE user_id = ?";
+        try(Connection conn = DBConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, b ? "Y" : "N");
+            pstmt.setInt(2, user.getUserId());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
