@@ -65,4 +65,9 @@ public class UserService {
         userRepository.updateUserInfo(user);
     }
 
+    public void showAllUsers() {
+        List<User> userList = userRepository.findAllUser();
+        UserView.showAllUsersView(userList);
+    }
+
 }

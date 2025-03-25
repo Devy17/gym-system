@@ -73,4 +73,27 @@ public class UserRepository {
             e.printStackTrace();
         }
     }
+
+    public List<User> findAllUser() {
+        List<User> userList = new ArrayList<>();
+        String sql = "SELECT * FROM users";
+
+        try (Connection conn = DBConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                userList.add(new User(
+                        rs.getInt("user_id"),
+                        rs.getString("user_name"),
+                        rs.getString("phone_number"),
+                        rs.getDate("regist_date").toLocalDate(),
+                        rs.getString("user_active").equals("Y")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return userList;
+    }
 }

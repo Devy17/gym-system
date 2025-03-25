@@ -46,4 +46,13 @@ public class UserView {
     public static void accessUserFail() {
         System.out.println("# 출입에 실패하였습니다.");
     }
+
+    public static void showAllUsersView(List<User> userList) {
+        System.out.println("\n====== 회원 전체 조회 ======");
+        for (User user : userList) {
+            System.out.printf("# %d. %s(%s) 등록 일자 : %s, 활성화 여부: %s",
+                    user.getUserId(), user.getUserName(), user.getPhoneNumber(), user.getRegistDate().toString(), user.isUserActive() ? "Y" : "N");
+        }
+        System.out.println();
+    }
 }
