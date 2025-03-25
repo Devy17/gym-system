@@ -59,14 +59,9 @@ public class OrderView {
 
         // 상품 정보 출력
         for (Product product : productOptions) {
-            System.out.println("상품 ID: " + product.getProductId());
-            System.out.println("멤버십 ID: " + product.getMembershipId());
-            System.out.println("상품명: " + product.getProductName());
-            System.out.println("가격: " + product.getPrice());
+            System.out.println("상품명: " + product.getProductName() + " 가격: " + product.getPrice() );
             System.out.println("----------------------");
         }
-
-
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
             case 1:
