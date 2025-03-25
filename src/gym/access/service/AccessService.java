@@ -1,6 +1,5 @@
 package gym.access.service;
 
-import gym.access.domain.Access;
 import gym.access.repo.AccessRepository;
 import gym.access.view.AccessView;
 import gym.user.domain.User;
@@ -12,7 +11,7 @@ public class AccessService {
 
     private UserService userService;
 
-    public AccessService(UserService userService) {
+    public AccessService() {
         this.userService = userService;
     }
 
