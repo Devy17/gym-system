@@ -4,6 +4,7 @@ import gym.user.domain.User;
 import gym.user.service.UserService;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 import static common.AppUI.*;
 
@@ -14,6 +15,7 @@ public class UserView {
         System.out.println("\n====== 회원 등록을 진행합니다. ======");
         String name = inputString("# 회원명: ");
         String phone = inputString("# 전화번호: ");
+        boolean active = true;
         User newUser = userService.join(name, phone);
         System.out.printf("\n### [%s]님의 회원 가입이 완료되었습니다.\n", newUser.getUserName());
     }

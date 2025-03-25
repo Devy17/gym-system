@@ -24,6 +24,23 @@ public class UserRepository {
         }
     }
 
+    public void Activation() { //회원 활성화 여부
+        String sql = "UPDATE users u JOIN status s ON u.user_id = s.user_id " +
+                "SET u.active = 'N' " +
+                "WHERE s.product_count = 0 AND s.remained_month = 0 ";
+
+        try(Connection conn = DBConnectionManager.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
     public List<User> findByUserName(String name) {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM users WHERE user_name = ? AND user_active = ?";
