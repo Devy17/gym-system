@@ -163,6 +163,7 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                MembershipView.findMembership();
                 break;
             case 2:
                 MembershipView.addUserView();
