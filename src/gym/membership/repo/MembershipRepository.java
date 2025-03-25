@@ -18,7 +18,8 @@ public class MembershipRepository {
         List<Membership> membershipList = new ArrayList<>();
         String sql = "SELECT * FROM memberships";
         try (Connection conn = DBConnectionManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
