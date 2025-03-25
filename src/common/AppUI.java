@@ -92,6 +92,7 @@ public class AppUI {
                 membershipMenuScreen();
                 break;
             case 4:
+                accessService.searchAccessInfoByMonth();
                 break;
             case 5:
                 employeeMenuScreen();
@@ -194,7 +195,7 @@ public class AppUI {
                 userOrderMenuScreen();
                 break;
             case 3:
-                AccessView.accessUserView();
+                accessService.accessUserService();
                 break;
             case 4:
                 break;

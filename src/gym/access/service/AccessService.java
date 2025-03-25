@@ -13,7 +13,10 @@ import static common.AppUI.inputString;
 public class AccessService {
     AccessRepository accessRepository = new AccessRepository();
 
-    public void accessUserService(String phoneBackNum) {
+    public void accessUserService() {
+        String phoneBackNum = AccessView.accessUserView();
+        if(phoneBackNum.isEmpty()) return;
+
         List<User> userList = accessRepository.searchUserByPhoneNumber(phoneBackNum);
         User user = null;
 
@@ -34,6 +37,12 @@ public class AccessService {
                 // TODO 주문하는 곳으로 이동
             }
         }
+    }
+
+    public void searchAccessInfoByMonth() {
+        String[] dateInfo = AccessView.accessUserView().split("-");
+        Map<Access, User> userMap = accessRepository.searchAccessByDate(dateInfo[0], dateInfo[1]);
+        AccessView.showAccessByDate(userMap);
     }
 
 }
