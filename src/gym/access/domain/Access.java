@@ -20,6 +20,7 @@ public class Access {
         this.accessDate = LocalDate.now();
     }
 
+
     public int getAccessId() {
         return accessId;
     }

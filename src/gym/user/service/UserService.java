@@ -11,12 +11,14 @@ import static common.AppUI.*;
 public class UserService {
     private final UserRepository userRepository = new UserRepository();
 
+
     public User join(String name, String phone) {
         User newUser = new User(name, phone);
         userRepository.addUser(newUser);
-
         return newUser;
     }
+
+
 
     public void updateUserInfo(String name) {
         List<User> userList = userRepository.findByUserName(name);

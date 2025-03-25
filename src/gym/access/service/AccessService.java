@@ -6,6 +6,7 @@ import gym.access.view.AccessView;
 import gym.user.domain.User;
 import gym.user.repo.UserRepository;
 import gym.user.view.UserView;
+import status.domain.Status;
 
 import java.util.List;
 import java.util.Map;
@@ -33,8 +34,12 @@ public class AccessService {
         }
 
         if(user != null) {
-            if(accessRepository.checkUserStatus(user)) {
+            Status status = accessRepository.checkUserStatus(user);
+            if(status != null && status.getRemainedMonth() > 0) {
                 // 출입 승인
+                if(AccessView.selectAccessMode()) { // 상품 선택했다면 상품 카운트 - 1
+                   accessRepository.updateUserStatus(user);
+                }
                 accessRepository.addAccessData(user);
                 AccessView.accessSuccessful();
             } else {
