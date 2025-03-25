@@ -1,23 +1,24 @@
 package gym.employee.domain;
 
 public class Employee {
+
     private int employeeId;
     private String employeeName;
-    private String part;
-    private boolean employeeActive;
+    private String employeePart;
+    private boolean employeeActiveStatus;
 
-    public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
+    public Employee() {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
-        this.part = part;
-        this.employeeActive = employeeActive;
+        this.employeePart = employeePart;
+        this.employeeActiveStatus = employeeActiveStatus;
     }
 
-    public Employee(int employeeId, String employeeName, String part) {
+    public Employee(int employeeId, String employeeName, String employeePart, boolean employeeActiveStatus) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
-        this.part = part;
-        this.employeeActive = true;
+        this.employeePart = employeePart;
+        this.employeeActiveStatus = employeeActiveStatus;
     }
 
     public int getEmployeeId() {
@@ -36,19 +37,27 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-    public String getPart() {
-        return part;
+    public String getEmployeePart() {
+        return employeePart;
     }
 
-    public void setPart(String part) {
-        this.part = part;
+    public void setEmployeePart(String employeePart) {
+        this.employeePart = employeePart;
     }
 
-    public boolean isEmployeeActive() {
-        return employeeActive;
-    }
+    public boolean getEmployeeActiveStatus() {return employeeActiveStatus; };
 
-    public void setEmployeeActive(boolean employeeActive) {
-        this.employeeActive = employeeActive;
-    }
+    public void setEmployeeActiveStatus(boolean employeeActiveStatus) {this.employeeActiveStatus = employeeActiveStatus; };
+
+
+@Override
+public String toString() {
+    return "Employee{" +
+            "name='" + employeeName + '\'' +
+            ", id=" + employeeId +
+            ", activeStatus='" + employeeActiveStatus + '\'' +
+            '}';
 }
+
+}
+

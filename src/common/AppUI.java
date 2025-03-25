@@ -6,7 +6,7 @@ import gym.user.view.UserView;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class AppUI {
+public abstract class AppUI {
     private static final Scanner sc = new Scanner(System.in);
 
     public static String inputString(String message) {
@@ -220,4 +220,6 @@ public class AppUI {
                 break;
         }
     }
+
+    public abstract void start();
 }
