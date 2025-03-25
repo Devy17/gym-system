@@ -1,12 +1,15 @@
 package gym.access.repo;
 
+import gym.access.domain.Access;
 import gym.user.domain.User;
 import jdbc.DBConnectionManager;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AccessRepository {
     public List<User> searchUserByPhoneNumber(String phoneBackNum) {
@@ -65,5 +68,37 @@ public class AccessRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Map<Access, User> searchAccessByDate(String yearStr, String monthStr) {
+        Map<Access, User> map = new HashMap<>();
+        String sql = "SELECT * FROM accesses a JOIN user u ON a.user_id = u.user_id WHERE a.access_date LIKE ?";
+        if(Integer.parseInt(monthStr) < 10) {
+            monthStr += "0";
+        }
+
+        try (Connection conn = DBConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, yearStr + "-" + monthStr + "%");
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                map.put(new Access(
+                        rs.getInt("access_id"),
+                        rs.getInt("user_id"),
+                        rs.getDate("access_date").toLocalDate()
+                ), new User(
+                        rs.getInt("user_id"),
+                        rs.getString("user_name"),
+                        rs.getString("phone_number"),
+                        rs.getDate("regist_date").toLocalDate()
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+
+        return map;
     }
 }

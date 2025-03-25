@@ -1,23 +1,27 @@
 package gym.access.view;
 
+import gym.access.domain.Access;
 import gym.access.service.AccessService;
 import gym.user.domain.User;
 import gym.user.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 import static common.AppUI.inputInteger;
 import static common.AppUI.inputString;
 
 public class AccessView {
-    public static void accessUserView() {
+    public static String accessUserView() {
         String phoneBackNum;
-        UserService userService = new UserService();
 
         // 핸드폰 번호 유효성 검증 로직
         do {
-            System.out.println("# 핸드폰 번호 뒷 4자리를 입력해주세요");
+            System.out.println("# 핸드폰 번호 뒷 4자리를 입력해주세요 \n종료를 원하시면 q를 입력하세요.");
             phoneBackNum = inputString(">>> ");
+
+            if(phoneBackNum.equals("q")) return "";
+
             if(phoneBackNum.length() != 4) {
                 System.out.println("# 4자리를 입력해주세요!");
             } else {
@@ -32,9 +36,7 @@ public class AccessView {
                 if(flag) break; //통과
             }
         } while (true);
-
-        AccessService accessService = new AccessService();
-        accessService.accessUserService(phoneBackNum);
+        return phoneBackNum;
     }
 
     public static void cannotFindUser() {
@@ -58,5 +60,27 @@ public class AccessView {
 
     public static void accessSuccessful() {
         System.out.println("# 출입이 정상적으로 처리되었습니다.");
+    }
+
+    public static String searchAccessView() {
+        System.out.println("# 조회하고자 하는 년도를 입력해주세요.");
+        int year = inputInteger(">>> ");
+        System.out.println("# 조회하고자 하는 달을 입력해주세요.");
+        int month;
+        do {
+            month = inputInteger(">>> ");
+            if(month < 1 || month > 12) {
+                System.out.println("잘못된 입력값입니다. 다시 입력해주세요.");
+            } else break;
+        } while (true);
+
+        return year + "-" + month;
+    }
+
+    public static void showAccessByDate(Map<Access, User> userMap) {
+        for (Access access : userMap.keySet()) {
+            User user = userMap.get(access);
+            System.out.printf("# 날짜 : %s, 회원명 %s(%s)", access.getAccessDate().toString(), user.getUserName(), user.getPhoneNumber());
+        }
     }
 }
