@@ -6,13 +6,10 @@ import gym.access.view.AccessView;
 import gym.user.domain.User;
 import gym.user.repo.UserRepository;
 import gym.user.view.UserView;
-import status.domain.Status;
+import gym.domain.Status;
 
 import java.util.List;
 import java.util.Map;
-
-import static common.AppUI.inputInteger;
-import static common.AppUI.inputString;
 
 public class AccessService {
     AccessRepository accessRepository = new AccessRepository();

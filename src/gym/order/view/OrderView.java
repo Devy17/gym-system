@@ -5,6 +5,7 @@ import static common.AppUI.wrongNumber;
 
 import gym.membership.domain.Membership;
 import gym.membership.service.MembershipService;
+import gym.order.service.OrderService;
 import gym.product.domain.Product;
 import gym.product.service.ProductService;
 
@@ -18,6 +19,7 @@ import java.util.List;
 
 
 public class OrderView {
+    private OrderService orderService1 = new OrderService();
 
     public static void purchaseMembershipView() {
         System.out.println("\n# 구매하시려는 회원권을 선택해주세요.");
@@ -42,10 +44,10 @@ public class OrderView {
     }
 
 
-
     public static void purchaseProductView() {
+        OrderService orderService = new OrderService();
         // 상품 목록 가져오기
-        List<Product> productOptions = ProductService.getProductOptions();
+        List<Product> productOptions = orderService.getProductOptionService();
 
         System.out.println("\n=== 상품 목록 ===");
         if (productOptions.isEmpty()) {
@@ -55,7 +57,7 @@ public class OrderView {
 
         // 상품 정보 출력
         for (Product product : productOptions) {
-            System.out.println("상품명: " + product.getProductName() + " 가격: " + product.getPrice() );
+            System.out.println("상품명: " + product.getProductName() + " 가격: " + product.getPrice());
             System.out.println("----------------------");
         }
         int selectNum = inputInteger(">>> ");
@@ -73,13 +75,12 @@ public class OrderView {
                 break;
         }
     }
-        // TODO 여기에 order 테이블에 회원권과 상품을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
-    }
+    // TODO 여기에 order 테이블에 회원권과 상품을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
 
     public static void showOrderInfo(List<Order> orderList) {
         System.out.println("========== 결제 목록 ==========");
         for (Order order : orderList) {
-            if(order.getProduct() == null) {
+            if (order.getProduct() == null) {
                 System.out.printf("결제 ID | %d, 회원 정보 | %s(%s), 결제 상품 | %s, 담당 직원 | %s",
                         order.getOrderId(), order.getUser().getUserId(), order.getUser().getPhoneNumber(),
                         order.getMembership().getPeriod() + "개월", order.getEmployee().getEmployeeName());

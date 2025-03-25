@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class DBConnectionManager {
     // 오라클 JDBC 연결 정보
     private static final String DRIVER = "oracle.jdbc.driver.OracleDriver";
-    private static final String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-    private static final String USER = "gym"; // 본인 계정
-    private static final String PASSWORD = "gym"; // 본인 비밀번호
+    private static final String URL = "jdbc:oracle:thin:@172.25.64.1:1521:xe";
+    private static final String USER = "sky"; // 본인 계정
+    private static final String PASSWORD = "sky"; // 본인 비밀번호
 
     // 정적 초기화자를 사용하여 드라이버를 로드
     static {

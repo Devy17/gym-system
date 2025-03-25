@@ -1,6 +1,4 @@
-package status.domain;
-
-import gym.product.domain.Product;
+package gym.domain;
 
 import java.time.LocalDate;
 
