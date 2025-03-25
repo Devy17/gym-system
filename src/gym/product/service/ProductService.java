@@ -20,7 +20,7 @@ public class ProductService {
      */
     public Product createProduct(String productName, int price) {
         Product product = new Product(productName, price);
-        productRepository.addProduct(product);
+        productRepositoryRepository.addProduct(product);
 
         return product;
     }
