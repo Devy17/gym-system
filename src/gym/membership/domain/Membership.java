@@ -5,6 +5,11 @@ public class Membership {
     private int period;
     private int price;
 
+    public Membership(int period, int price) {
+        this.period = period;
+        this.price = price;
+    }
+
 
     public Membership(int price, int period, int membershipId) {
         this.price = price;
