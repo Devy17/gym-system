@@ -3,6 +3,7 @@ package common;
 import gym.access.service.AccessService;
 import gym.membership.view.MembershipView;
 import gym.order.view.OrderView;
+import gym.product.view.ProductView;
 import gym.user.view.UserView;
 
 import java.util.InputMismatchException;
@@ -146,7 +147,8 @@ public class AppUI {
             case 1:
                 break;
             case 2:
-                userOrderMenuScreen();
+                // 상품 추가
+                ProductView.addProductView();
                 break;
             case 3:
                 return;
@@ -166,10 +168,10 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
-                MembershipView.findMembership();
+                MembershipView.findMembershipView();
                 break;
             case 2:
-                MembershipView.addUserView();
+                MembershipView.addMembershipView();
                 break;
             case 3:
                 return;

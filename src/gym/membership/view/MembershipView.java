@@ -12,7 +12,7 @@ public class MembershipView {
     /**
      * 회원권 조회
      */
-    public static List<Membership> findMembership() {
+    public static List<Membership> findMembershipView() {
         List<Membership> membershipOptions = MembershipService.getMembershipOptions();
         for (int i = 1; i <= membershipOptions.size(); i++) {
             Membership membership = membershipOptions.get(i - 1);
@@ -30,7 +30,7 @@ public class MembershipView {
     /**
      * 회원권 종류 추가
      */
-    public static void addUserView() {
+    public static void addMembershipView() {
         MembershipService membershipService = new MembershipService();
         System.out.println("\n====== 회원권 종류 추가. ======");
         int period = inputInteger("# 회원권 개월: ");
