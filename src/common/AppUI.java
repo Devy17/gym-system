@@ -1,5 +1,7 @@
 package common;
 
+import gym.access.service.AccessService;
+import gym.access.view.AccessView;
 import gym.order.view.OrderView;
 import gym.user.view.UserView;
 
@@ -8,6 +10,8 @@ import java.util.Scanner;
 
 public class AppUI {
     private static final Scanner sc = new Scanner(System.in);
+
+    private static final AccessService accessService = new AccessService();
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -38,7 +42,7 @@ public class AppUI {
         System.out.println("### 2. 관리자 메뉴");
         System.out.println("### 3. 프로그램 종료");
         makeLine();
-        
+
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
             case 1:
@@ -190,6 +194,7 @@ public class AppUI {
                 userOrderMenuScreen();
                 break;
             case 3:
+                AccessView.accessUserView();
                 break;
             case 4:
                 break;
