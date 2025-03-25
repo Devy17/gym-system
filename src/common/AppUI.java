@@ -3,6 +3,8 @@ package common;
 import gym.access.service.AccessService;
 import gym.membership.view.MembershipView;
 import gym.order.view.OrderView;
+
+import gym.user.service.UserService;
 import gym.product.view.ProductView;
 import gym.user.view.UserView;
 
@@ -13,6 +15,7 @@ public class AppUI {
     private static final Scanner sc = new Scanner(System.in);
 
     private static final AccessService accessService = new AccessService();
+    private static final UserService userService = new UserService();
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -85,6 +88,7 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                userService.showAllUsers();
                 break;
             case 2:
                 productMenuScreen();

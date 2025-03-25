@@ -45,8 +45,11 @@ public class AccessView {
 
     public static User findUserForUserList(List<User> userList) {
         for (User user : userList) {
+            String phoneNum = user.getPhoneNumber();
+            phoneNum = "010-****-" +  phoneNum.substring(phoneNum.lastIndexOf("-") + 1);
+
             System.out.printf("%d. %s(%s) 등록 날짜 : %s\n",
-                    user.getUserId(), user.getUserName(), user.getPhoneNumber(), user.getRegistDate().toString());
+                    user.getUserId(), user.getUserName(), phoneNum, user.getRegistDate().toString());
         }
         int selectNum = inputInteger(">>> ");
         for (User user : userList) {
