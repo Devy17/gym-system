@@ -15,6 +15,7 @@ public class UserService {
     public User join(String name, String phone) {
         User newUser = new User(name, phone);
         userRepository.addUser(newUser);
+        userRepository.UserStatus(newUser);
         return newUser;
     }
 
