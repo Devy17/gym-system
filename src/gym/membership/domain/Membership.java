@@ -1,18 +1,14 @@
 package gym.membership.domain;
 
-import java.time.LocalDate;
-
 public class Membership {
     private int membershipId;
-    private int employeeId;
-    private LocalDate period;
+    private int period;
     private int price;
 
 
-    public Membership(int price, LocalDate period, int employeeId, int membershipId) {
+    public Membership(int price, int period, int membershipId) {
         this.price = price;
         this.period = period;
-        this.employeeId = employeeId;
         this.membershipId = membershipId;
     }
 
@@ -24,19 +20,11 @@ public class Membership {
         this.membershipId = membershipId;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
-    }
-
-    public LocalDate getPeriod() {
+    public int getPeriod() {
         return period;
     }
 
-    public void setPeriod(LocalDate period) {
+    public void setPeriod(int period) {
         this.period = period;
     }
 
