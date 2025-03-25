@@ -1,8 +1,12 @@
 package gym.access.service;
 
 import gym.access.domain.Access;
+import gym.access.repo.AccessRepository;
+import gym.access.view.AccessView;
 import gym.user.domain.User;
 import gym.user.service.UserService;
+
+import java.util.List;
 
 public class AccessService {
 
@@ -12,23 +16,31 @@ public class AccessService {
         this.userService = userService;
     }
 
-    public User accessUser(String phone) {
-        // 휴대폰 번호를 기준으로 유저를 조회
-        User user = userService.join(phone);
+    AccessRepository accessRepository = new AccessRepository();
 
-        if (user == null) {
-            System.out.println("등록되지 않은 회원입니다.");
-            return null;
-        }
+    public void accessUserService(String phoneBackNum) {
+        List<User> userList = accessRepository.searchUserByPhoneNumber(phoneBackNum);
+        User user = null;
 
-        if (user.isActive()) {
-            System.out.printf("[%s]님, 출입이 허용되었습니다.\n", user.getUserName());
+        if (userList.size() == 1) {
+            user = userList.get(0);
+        } else if (!userList.isEmpty()) {
+            user = AccessView.findUserForUserList(userList);
         } else {
-            System.out.println("출입 권한이 만료되었습니다.");
+            AccessView.cannotFindUser();
         }
 
-        return user;
+        if(user != null) {
+            if(accessRepository.checkUserStatus(user)) {
+                // 출입 승인
+                accessRepository.addAccessData(user);
+                AccessView.accessSuccessful();
+            } else {
+                // TODO 주문하는 곳으로 이동
+            }
+        }
     }
+
 
 
 
