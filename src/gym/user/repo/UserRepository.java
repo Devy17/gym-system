@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserRepository {
     public void addUser(User user) {
-        String sql = "INSERT INTO users VALUES(user_seq.NEXTVAL, ?, ?, ?, ?)\";";
+        String sql = "INSERT INTO users VALUES(user_seq.NEXTVAL, ?, ?, ?, ?)";
 
         try(Connection conn = DBConnectionManager.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {

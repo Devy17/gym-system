@@ -70,4 +70,11 @@ public class UserService {
         UserView.showAllUsersView(userList);
     }
 
+    /**
+     * 회원 이름 조회
+     */
+    public List<User> showUserByName(String userName) {
+        return userRepository.findByUserName(userName);
+    }
+
 }
