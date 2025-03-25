@@ -12,6 +12,9 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import gym.membership.view.MembershipView;
+import gym.order.domain.Order;
+
+import java.util.List;
 
 
 public class OrderView {
@@ -70,5 +73,19 @@ public class OrderView {
                 break;
         }
     }
-        // TODO 여기에 order 테이블에 회원권과 상품을 추가하는 로직이 들어가야 함 -> order.service에 구현해주세요
+
+    public static void showOrderInfo(List<Order> orderList) {
+        System.out.println("========== 결제 목록 ==========");
+        for (Order order : orderList) {
+            if(order.getProduct() == null) {
+                System.out.printf("결제 ID | %d, 회원 정보 | %s(%s), 결제 상품 | %s, 담당 직원 | %s",
+                        order.getOrderId(), order.getUser().getUserId(), order.getUser().getPhoneNumber(),
+                        order.getMembership().getPeriod() + "개월", order.getEmployee().getEmployeeName());
+            } else {
+                System.out.printf("결제 ID | %d, 회원 정보 | %s(%s), 결제 상품 | %s, %s, 담당 직원 | %s",
+                        order.getOrderId(), order.getUser().getUserId(), order.getUser().getPhoneNumber(),
+                        order.getProduct().getProductName(), order.getMembership().getPeriod() + "개월", order.getEmployee().getEmployeeName());
+            }
+        }
+    }
 }

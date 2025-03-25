@@ -2,6 +2,7 @@ package common;
 
 import gym.access.service.AccessService;
 import gym.membership.view.MembershipView;
+import gym.order.service.OrderService;
 import gym.order.view.OrderView;
 
 import gym.user.service.UserService;
@@ -16,6 +17,7 @@ public class AppUI {
 
     private static final AccessService accessService = new AccessService();
     private static final UserService userService = new UserService();
+    private static final OrderService orderService = new OrderService();
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -103,6 +105,7 @@ public class AppUI {
                 employeeMenuScreen();
                 break;
             case 6:
+                orderService.showAllOrderInfo();
                 break;
             case 7:
                 break;
