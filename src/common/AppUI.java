@@ -46,7 +46,7 @@ public class AppUI {
         System.out.println("### 2. 관리자 메뉴");
         System.out.println("### 3. 프로그램 종료");
         makeLine();
-        
+
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
             case 1:
