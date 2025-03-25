@@ -12,31 +12,65 @@ public class UserRepository {
     public void addUser(User user) {
         String sql = "INSERT INTO users VALUES(users_seq.NEXTVAL, ?, ?, ?, ?)";
 
-        try(Connection conn = DBConnectionManager.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conn = DBConnectionManager.getConnection();
+            conn.setAutoCommit(false);
+
+            pstmt = conn.prepareStatement(sql);
+
             pstmt.setString(1, user.getUserName());
             pstmt.setString(2, user.getPhoneNumber());
             pstmt.setDate(3, Date.valueOf(user.getRegistDate()));
             pstmt.setString(4, user.isUserActive() ? "Y" : "N");
 
             pstmt.executeUpdate();
-        } catch (SQLException e) {
+
+            userStatus(conn, user);
+
+            conn.commit();
+        } catch (Exception e) {
             e.printStackTrace();
+            try {
+                if (conn != null) conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true);
+                pstmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    public void UserStatus(User user) {
-        String sql = "INSERT INTO status (user_id, start_date, remained_month, product_count)" +
-                "VALUES(users_seq.NEXTVAL, ?, ?, ?)";
-        try(Connection conn = DBConnectionManager.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setDate(1, Date.valueOf(LocalDate.now()));
-            pstmt.setInt(2, 0);
-            pstmt.setInt(3, 0);
+    private void userStatus(Connection conn, User user) throws Exception {
+//        String selectSql = "SELECT users_seq.NEXTVAL FROM DUAL ";
+//        String insertStatusSql = "INSERT INTO status (user_id, start_date, remained_month, product_count)" +
+//                "VALUES(?, ?, ?, ?)INSERT INTO status (user_id, start_date, remained_month, product_count)" +
+//                "VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO status (user_id, start_date, remained_month, product_count) " +
+                "VALUES (users_seq.CURRVAL, ?, ?, ?)";
 
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try(PreparedStatement Pstmt = conn.prepareStatement(sql)){
+
+            Pstmt.setDate(1, Date.valueOf(LocalDate.now()));
+            Pstmt.setInt(2, 0);
+            Pstmt.setInt(3, 0);
+
+            Pstmt.executeUpdate();
+           /* insertPstmt.setInt(1,  userId);
+            insertPstmt.setDate(2, Date.valueOf(LocalDate.now()));
+            insertPstmt.setInt(3, 0);
+            insertPstmt.setInt(4, 0);*/
+
+
+//            insertPstmt.executeUpdate();
         }
     }
 
