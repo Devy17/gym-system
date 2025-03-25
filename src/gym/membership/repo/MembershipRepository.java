@@ -11,11 +11,15 @@ import jdbc.DBConnectionManager;
 
 public class MembershipRepository {
 
+    /**
+     * 회원권 조회
+     */
     public List<Membership> findAll() {
         List<Membership> membershipList = new ArrayList<>();
         String sql = "SELECT * FROM memberships";
         try (Connection conn = DBConnectionManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
@@ -29,6 +33,24 @@ public class MembershipRepository {
             e.printStackTrace();
         }
         return membershipList;
+    }
+
+    /**
+     * 회원권 종류 추가
+     */
+    public void addMembership(Membership membership) {
+        String sql = "INSERT INTO memberships VALUES(memberships_seq.NEXTVAL, ?, ?)";
+
+        try (Connection conn = DBConnectionManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, membership.getPeriod());
+            pstmt.setInt(2, membership.getPrice());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
