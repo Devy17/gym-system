@@ -126,12 +126,16 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                employeeService.getAllEmployees();
                 break;
             case 2:
+                employeeService.addEmployee();
                 break;
             case 3:
+                employeeService.updateEmployee();
                 break;
             case 4:
+                employeeService.deleteEmployee();
                 break;
             case 5:
                 return;

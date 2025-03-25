@@ -31,9 +31,9 @@ public class EmployeeService extends AppUI {
         System.out.println("\n====== 직원 정보를 추가합니다. ======");
         int employeeId = inputInteger("# 직원번호: ");
         String employeeName = inputString("# 직원명: ");
-        String employeePart = inputString("# 부서명: ");
+        String Part = inputString("# 부서명: ");
 
-        Employee employee = new Employee(employeeId, employeeName, employeePart, false);
+        Employee employee = new Employee(employeeId, employeeName, Part, false);
 
         employeeRepository.addEmployee(employee);
 
@@ -65,8 +65,8 @@ public class EmployeeService extends AppUI {
             System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
             employee.setEmployeeId(inputInteger("# 새로운 직원번호: "));
             employee.setEmployeeName(inputString("# 새로운 직원명: "));
-            employee.setEmployeePart(inputString("# 새로운 부서명: "));
-            employee.setEmployeeActiveStatus(inputInteger("# 활성 상태 (1: 활성, 0: 비활성): ") == 1);
+            employee.setPart(inputString("# 새로운 부서명: "));
+            employee.setEmployeeActive(inputInteger("# 활성 상태 (1: 활성, 0: 비활성): ") == 1);
 
             employeeRepository.updateEmployee(employee);
             System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employee.getEmployeeName());

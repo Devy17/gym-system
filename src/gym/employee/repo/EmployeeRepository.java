@@ -22,11 +22,11 @@ public class EmployeeRepository {
                 Employee employee = new Employee();
                 employee.setEmployeeId(rs.getInt("id"));
                 employee.setEmployeeName(rs.getString("name"));
-                employee.setEmployeePart(rs.getString("part"));
+                employee.setPart(rs.getString("part"));
 
-                // ActiveStatus 값을 "Y" 또는 "N"으로 변환
-                String activeStatus = rs.getBoolean("ActiveStatus") ? "Y" : "N";
-                employee.setEmployeeActiveStatus(Boolean.parseBoolean(activeStatus));
+                // Active 값을 "Y" 또는 "N"으로 변환
+                String active = rs.getBoolean("Active") ? "Y" : "N";
+                employee.setEmployeeActive(Boolean.parseBoolean(active));
 
                 employeeList.add(employee);
             }
@@ -40,14 +40,14 @@ public class EmployeeRepository {
 
     // 직원 추가
     public boolean addEmployee(Employee employee) {
-        String sql = "INSERT INTO employees (id, name, part, ActiveStatus) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO employees (id, name, part, Active) VALUES (?, ?, ?, ?)";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setInt(1, employee.getEmployeeId());
             ps.setString(2, employee.getEmployeeName());
-            ps.setString(3, employee.getEmployeePart());
-            ps.setString(4, employee.getEmployeeActiveStatus() ? "Y" : "N");
+            ps.setString(3, employee.getPart());
+            ps.setString(4, employee.getEmployeeActive() ? "Y" : "N");
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -58,13 +58,13 @@ public class EmployeeRepository {
 
     // 직원 수정
     public boolean updateEmployee(Employee employee) {
-        String sql = "UPDATE employees SET name = ?, part = ?, ActiveStatus = ? WHERE id = ?";
+        String sql = "UPDATE employees SET name = ?, part = ?, Active = ? WHERE id = ?";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, employee.getEmployeeName());
-            ps.setString(2, employee.getEmployeePart());
-            ps.setString(3, employee.getEmployeeActiveStatus() ? "Y" : "N");
+            ps.setString(2, employee.getPart());
+            ps.setString(3, employee.getEmployeeActive() ? "Y" : "N");
             ps.setInt(4, employee.getEmployeeId());
             return ps.executeUpdate() > 0;
 
@@ -76,7 +76,7 @@ public class EmployeeRepository {
 
     // 직원 비활성화
     public boolean deactivateEmployee(int id) {
-        String sql = "UPDATE employees SET isDeleted = TRUE WHERE id = ?";
+        String sql = "UPDATE employees SET employee_active = 'N' WHERE employee_id = ?";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

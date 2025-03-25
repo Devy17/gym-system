@@ -4,21 +4,21 @@ public class Employee {
 
     private int employeeId;
     private String employeeName;
-    private String employeePart;
-    private boolean employeeActiveStatus;
+    private String Part;
+    private boolean employeeActive;
 
     public Employee() {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
-        this.employeePart = employeePart;
-        this.employeeActiveStatus = employeeActiveStatus;
+        this.Part = Part;
+        this.employeeActive = employeeActive;
     }
 
-    public Employee(int employeeId, String employeeName, String employeePart, boolean employeeActiveStatus) {
+    public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
-        this.employeePart = employeePart;
-        this.employeeActiveStatus = employeeActiveStatus;
+        this.Part = part;
+        this.employeeActive = employeeActive;
     }
 
     public int getEmployeeId() {
@@ -37,22 +37,22 @@ public class Employee {
         this.employeeName = employeeName;
     }
 
-    public String getEmployeePart() {
-        return employeePart;
+    public String getPart() {
+        return Part;
     }
 
-    public void setEmployeePart(String employeePart) {
-        this.employeePart = employeePart;
+    public void setPart(String Part) {
+        this.Part = Part;
     }
 
-    public boolean getEmployeeActiveStatus() {
-        return employeeActiveStatus;
+    public boolean getEmployeeActive() {
+        return employeeActive;
     }
 
     ;
 
-    public void setEmployeeActiveStatus(boolean employeeActiveStatus) {
-        this.employeeActiveStatus = employeeActiveStatus;
+    public void setEmployeeActive(boolean employeeActive) {
+        this.employeeActive = employeeActive;
     }
 
     ;
@@ -63,7 +63,7 @@ public class Employee {
         return "Employee {\n" +
                 "    name: '" + employeeName + "',\n" +
                 "    id: " + employeeId + ",\n" +
-                "    activeStatus: '" + employeeActiveStatus + "'\n" +
+                "    active: '" + employeeActive + "'\n" +
                 "}";
     }
 }
