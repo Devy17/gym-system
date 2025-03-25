@@ -10,7 +10,7 @@ public class OrderView {
     public static void purchaseMembershipView() {
         System.out.println("\n# 구매하시려는 회원권을 선택해주세요.");
         // 회원권 조회 로직
-        MembershipView.findMembership();
+        MembershipView.findMembershipView();
 
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
