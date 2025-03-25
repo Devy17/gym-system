@@ -3,7 +3,11 @@ package common;
 import gym.access.service.AccessService;
 import gym.access.view.AccessView;
 import gym.employee.service.EmployeeService;
+import gym.membership.view.MembershipView;
 import gym.order.view.OrderView;
+
+import gym.user.service.UserService;
+import gym.product.view.ProductView;
 import gym.user.view.UserView;
 
 import java.util.InputMismatchException;
@@ -13,6 +17,7 @@ public class AppUI {
     private static final Scanner sc = new Scanner(System.in);
 
     private static final AccessService accessService = new AccessService();
+    private static final UserService userService = new UserService();
     private static final EmployeeService employeeService = new EmployeeService();
 
     public static String inputString(String message) {
@@ -44,7 +49,7 @@ public class AppUI {
         System.out.println("### 2. 관리자 메뉴");
         System.out.println("### 3. 프로그램 종료");
         makeLine();
-
+        
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
             case 1:
@@ -53,7 +58,7 @@ public class AppUI {
             case 2:
                 System.out.println("# 비밀번호를 입력하세요");
                 String input = inputString(">>> ");
-                if (input.equals("admin")) {
+                if(input.equals("admin")) {
                     managerMenuScreen();
                 } else {
                     System.out.println("# 잘못된 비밀번호입니다.");
@@ -84,7 +89,7 @@ public class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch (selectNum) {
+        switch(selectNum) {
             case 1:
                 break;
             case 2:
@@ -119,21 +124,16 @@ public class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch (selectNum) {
+        switch(selectNum) {
             case 1:
-                employeeService.getAllEmployees();
                 break;
             case 2:
-                employeeService.addEmployee();
                 break;
             case 3:
-                employeeService.updateEmployee();
                 break;
             case 4:
-                employeeService.deleteEmployee();
                 break;
             case 5:
-                System.out.println("# 이전 화면으로 돌아갑니다.");
                 return;
             default:
                 wrongNumber();
@@ -149,7 +149,7 @@ public class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch (selectNum) {
+        switch(selectNum) {
             case 1:
                 break;
             case 2:
@@ -171,7 +171,7 @@ public class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch (selectNum) {
+        switch(selectNum) {
             case 1:
                 break;
             case 2:
@@ -194,7 +194,7 @@ public class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch (selectNum) {
+        switch(selectNum) {
             case 1:
                 UserView.addUserView();
                 break;
@@ -219,7 +219,7 @@ public class AppUI {
         System.out.println("### 3. 이전으로 돌아가기");
 
         int selectNum = inputInteger(">>> ");
-        switch (selectNum) {
+        switch(selectNum) {
             case 1:
                 OrderView.purchaseMembershipView();
                 break;
