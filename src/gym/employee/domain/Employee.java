@@ -45,19 +45,26 @@ public class Employee {
         this.employeePart = employeePart;
     }
 
-    public boolean getEmployeeActiveStatus() {return employeeActiveStatus; };
+    public boolean getEmployeeActiveStatus() {
+        return employeeActiveStatus;
+    }
 
-    public void setEmployeeActiveStatus(boolean employeeActiveStatus) {this.employeeActiveStatus = employeeActiveStatus; };
+    ;
+
+    public void setEmployeeActiveStatus(boolean employeeActiveStatus) {
+        this.employeeActiveStatus = employeeActiveStatus;
+    }
+
+    ;
 
 
-@Override
-public String toString() {
-    return "Employee{" +
-            "name='" + employeeName + '\'' +
-            ", id=" + employeeId +
-            ", activeStatus='" + employeeActiveStatus + '\'' +
-            '}';
-}
-
+    @Override
+    public String toString() {
+        return "Employee {\n" +
+                "    name: '" + employeeName + "',\n" +
+                "    id: " + employeeId + ",\n" +
+                "    activeStatus: '" + employeeActiveStatus + "'\n" +
+                "}";
+    }
 }
 

@@ -2,16 +2,18 @@ package common;
 
 import gym.access.service.AccessService;
 import gym.access.view.AccessView;
+import gym.employee.service.EmployeeService;
 import gym.order.view.OrderView;
 import gym.user.view.UserView;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public abstract class AppUI {
+public class AppUI {
     private static final Scanner sc = new Scanner(System.in);
 
     private static final AccessService accessService = new AccessService();
+    private static final EmployeeService employeeService = new EmployeeService();
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -119,14 +121,19 @@ public abstract class AppUI {
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
             case 1:
+                employeeService.getAllEmployees();
                 break;
             case 2:
+                employeeService.addEmployee();
                 break;
             case 3:
+                employeeService.updateEmployee();
                 break;
             case 4:
+                employeeService.deleteEmployee();
                 break;
             case 5:
+                System.out.println("# 이전 화면으로 돌아갑니다.");
                 return;
             default:
                 wrongNumber();
@@ -226,6 +233,4 @@ public abstract class AppUI {
                 break;
         }
     }
-
-    public abstract void start();
 }

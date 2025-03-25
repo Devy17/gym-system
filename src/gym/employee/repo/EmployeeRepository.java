@@ -9,27 +9,6 @@ import java.util.List;
 
 public class EmployeeRepository {
 
-    private static final List<Employee> employeeDatabase = new ArrayList<>();
-
-    static {
-        employeeData();
-    }
-
-    // 직원 정보 삽입
-    private static void employeeData() {
-        Employee employee1 = new Employee(1, "강하늘", "FC", true);
-        Employee employee2 = new Employee(1, "구현희", "FC", true);
-        Employee employee3 = new Employee(1, "송병준", "PT", true);
-        Employee employee4 = new Employee(1, "신현국", "PT", true);
-        Employee employee5 = new Employee(1, "전유빈", "PT", true);
-
-        employeeDatabase.add(employee1);
-        employeeDatabase.add(employee2);
-        employeeDatabase.add(employee3);
-        employeeDatabase.add(employee4);
-        employeeDatabase.add(employee5);
-    }
-
     // 직원 조회
     public List<Employee> getAllEmployees() {
         List<Employee> employeeList = new ArrayList<>();
@@ -95,9 +74,9 @@ public class EmployeeRepository {
         }
     }
 
-    // 직원 삭제
-    public boolean deleteEmployee(int id) {
-        String sql = "DELETE FROM employees WHERE id = ?";
+    // 직원 비활성화
+    public boolean deactivateEmployee(int id) {
+        String sql = "UPDATE employees SET isDeleted = TRUE WHERE id = ?";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 

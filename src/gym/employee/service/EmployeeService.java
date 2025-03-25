@@ -11,28 +11,8 @@ public class EmployeeService extends AppUI {
 
     private EmployeeRepository employeeRepository = new EmployeeRepository();
 
-    @Override
-    public void start() {
-
-        while (true) {
-            employeeMenuScreen();
-            int selection = inputInteger(">>> ");
-            switch (selection) {
-                case 1 -> getAllEmployees();
-                case 2 -> addEmployee();
-                case 3 -> updateEmployee();
-                case 4 -> deleteEmployee();
-                case 5 -> {
-                    System.out.println("# 이전 화면으로 돌아갑니다.");
-                    return;
-                }
-                default -> System.out.println("# 올바른 메뉴를 선택하세요.");
-            }
-        }
-    }
-
     // 직원 정보 조회
-    private void getAllEmployees() {
+    public void getAllEmployees() {
         try {
             List<Employee> employeeDatabase = employeeRepository.getAllEmployees();
             if (employeeDatabase == null || employeeDatabase.isEmpty()) {
@@ -47,7 +27,7 @@ public class EmployeeService extends AppUI {
     }
 
     // 직원 정보 추가
-    private void addEmployee() {
+    public void addEmployee() {
         System.out.println("\n====== 직원 정보를 추가합니다. ======");
         int employeeId = inputInteger("# 직원번호: ");
         String employeeName = inputString("# 직원명: ");
@@ -61,7 +41,7 @@ public class EmployeeService extends AppUI {
     }
 
     // 직원 정보 수정
-    private void updateEmployee() {
+    public void updateEmployee() {
         System.out.println("\n====== 직원 정보를 수정합니다. ======");
         String targetName = inputString("# 수정할 직원명: ");
 
@@ -96,7 +76,7 @@ public class EmployeeService extends AppUI {
     }
 
     // 직원 정보 삭제
-    private void deleteEmployee() {
+    public void deleteEmployee() {
         System.out.println("\n====== 직원 정보를 삭제합니다. ======");
         String targetName = inputString("# 삭제할 직원명: ");
 
@@ -110,7 +90,7 @@ public class EmployeeService extends AppUI {
             System.out.printf("\n### [%s] 직원 정보를 삭제합니다.\n", employee.getEmployeeName());
             String confirm = inputString("# 정말 삭제하시겠습니까? (Y/N): ");
             if (confirm.equalsIgnoreCase("Y")) {
-                employeeRepository.deleteEmployee(employee.getEmployeeId());
+                employeeRepository.deactivateEmployee(employee.getEmployeeId());
                 System.out.printf("\n### [%s] 직원 정보가 삭제되었습니다.\n", employee.getEmployeeName());
             } else {
                 System.out.println("\n### 삭제가 취소되었습니다.");
