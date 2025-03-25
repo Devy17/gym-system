@@ -94,7 +94,7 @@ public class EmployeeService extends AppUI {
             return;
         }
 
-        System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeName());
+        System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
         int employeeId = inputInteger("# 새로운 직원번호: ");
         String employeeName = inputString("# 새로운 직원명: ");
         String employeePart = inputString("# 새로운 부서명: ");
@@ -115,19 +115,28 @@ public class EmployeeService extends AppUI {
         System.out.println("\n====== 직원 정보를 삭제합니다. ======");
         int employeeId = inputInteger("# 삭제할 직원번호: ");
 
-        // 직원 조회 (getEmployeeById 메서드 활용)
-        Employee employee = employeeRepository.getAllEmployees(); // 직원 검색 메서드 수정
-        if (employee == null) {
+        // 직원 검색 (전체 리스트에서 검색)
+        List<Employee> employees = employeeRepository.getAllEmployees(); // 전체 직원 목록 가져오기
+        Employee targetEmployee = null;
+
+        for (Employee employee : employees) {
+            if (employee.getEmployeeId() == employeeId) {
+                targetEmployee = employee;
+                break;
+            }
+        }
+
+        if (targetEmployee == null) {
             System.out.println("\n### 해당 직원번호로 조회된 직원이 없습니다.");
             return;
         }
 
-        System.out.printf("\n### [%s] 직원 정보를 삭제합니다.\n", employee.getEmployeeId());
+        System.out.printf("\n### [%s] 직원 정보를 삭제합니다.\n", targetEmployee.getEmployeeId());
         String confirm = inputString("# 정말 삭제하시겠습니까? (Y/N): ");
         if (confirm.equalsIgnoreCase("Y")) {
-            boolean success = employeeRepository.deleteEmployee(employeeId); // 삭제 성공 여부 반환
+            boolean success = employees.remove(targetEmployee); // 리스트에서 직원 제거
             if (success) {
-                System.out.printf("\n### [%s] 직원 정보가 삭제되었습니다.\n", employee.getEmployeeId());
+                System.out.printf("\n### [%s] 직원 정보가 삭제되었습니다.\n", targetEmployee.getEmployeeId());
             } else {
                 System.out.println("\n### 직원 삭제 중 오류가 발생했습니다.");
             }
