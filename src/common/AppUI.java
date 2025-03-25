@@ -1,6 +1,7 @@
 package common;
 
 import gym.access.view.AccessView;
+import gym.membership.view.MembershipView;
 import gym.order.view.OrderView;
 import gym.user.view.UserView;
 
@@ -154,8 +155,8 @@ public class AppUI {
 
     public static void membershipMenuScreen() {
         System.out.println("\n========= 상품 메뉴 =========");
-        System.out.println("### 1. 상품 조회");
-        System.out.println("### 2. 상품 추가");
+        System.out.println("### 1. 회원권 조회");
+        System.out.println("### 2. 회원권 추가");
         System.out.println("### 3. 이전 화면으로 가기");
         makeLine();
 
@@ -164,7 +165,7 @@ public class AppUI {
             case 1:
                 break;
             case 2:
-                userOrderMenuScreen();
+                MembershipView.addUserView();
                 break;
             case 3:
                 return;
