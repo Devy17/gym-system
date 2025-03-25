@@ -5,20 +5,18 @@ import java.time.LocalDate;
 public class Access {
     private int accessId;
     private int userId;
-    private int productId;
     private LocalDate accessDate;
 
-    public Access(int accessId, int userId, int productId, LocalDate accessDate) {
+    public Access(int accessId, int userId, LocalDate accessDate) {
         this.accessId = accessId;
         this.userId = userId;
-        this.productId = productId;
+
         this.accessDate = accessDate;
     }
 
-    public Access(int accessId, int userId, int productId) {
+    public Access(int accessId, int userId) {
         this.accessId = accessId;
         this.userId = userId;
-        this.productId = productId;
         this.accessDate = LocalDate.now();
     }
 
@@ -36,14 +34,6 @@ public class Access {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public LocalDate getAccessDate() {
