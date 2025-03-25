@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
-    private static final List<Product> productList = new ArrayList<>();
     public List<Product> findAll() {
+        List<Product> productList = new ArrayList<>();
 
         String sql = "SELECT *" +
                 "FROM products ";

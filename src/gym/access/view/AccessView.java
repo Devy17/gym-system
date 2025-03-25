@@ -1,9 +1,7 @@
 package gym.access.view;
 
 import gym.access.domain.Access;
-import gym.access.service.AccessService;
 import gym.user.domain.User;
-import gym.user.service.UserService;
 
 import java.util.List;
 import java.util.Map;

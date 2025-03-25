@@ -36,7 +36,7 @@ public class OrderRepository {
             return false;
         }
     }
-  
+
     public List<Order> getOrderList() {
         List<Order> orderList = new ArrayList<>();
         String sql = "SELECT * " +

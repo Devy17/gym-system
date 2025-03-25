@@ -3,7 +3,8 @@ package gym.access.repo;
 import gym.access.domain.Access;
 import gym.user.domain.User;
 import jdbc.DBConnectionManager;
-import status.domain.Status;
+
+import gym.domain.Status;
 
 import java.sql.*;
 import java.time.LocalDate;
