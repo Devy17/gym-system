@@ -1,5 +1,7 @@
 package common;
 
+import gym.access.service.AccessService;
+import gym.access.view.AccessView;
 import gym.order.view.OrderView;
 import gym.user.view.UserView;
 
@@ -8,6 +10,8 @@ import java.util.Scanner;
 
 public class AppUI {
     private static final Scanner sc = new Scanner(System.in);
+
+    private static final AccessService accessService = new AccessService();
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -88,6 +92,7 @@ public class AppUI {
                 membershipMenuScreen();
                 break;
             case 4:
+                accessService.searchAccessInfoByMonth();
                 break;
             case 5:
                 employeeMenuScreen();
@@ -190,6 +195,7 @@ public class AppUI {
                 userOrderMenuScreen();
                 break;
             case 3:
+                accessService.accessUserService();
                 break;
             case 4:
                 break;
