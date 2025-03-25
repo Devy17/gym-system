@@ -5,7 +5,13 @@ public class Product {
     private String productName;
     private int price;
 
-    public Product(int productId,  String productName, int price) {
+
+    public Product(String productName, int price) {
+        this.productName = productName;
+        this.price = price;
+    }
+
+    public Product(int productId, String productName, int price) {
         this.productId = productId;
         this.productName = productName;
         this.price = price;
@@ -18,7 +24,6 @@ public class Product {
     public void setProductId(int productId) {
         this.productId = productId;
     }
-
 
     public String getProductName() {
         return productName;

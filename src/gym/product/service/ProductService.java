@@ -14,4 +14,14 @@ public class ProductService {
     public static List<Product> getProductOptions() {
         return productRepositoryRepository.findAll();
     }
+
+    /**
+     * 상품 추가
+     */
+    public Product createProduct(String productName, int price) {
+        Product product = new Product(productName, price);
+        productRepository.addProduct(product);
+
+        return product;
+    }
 }

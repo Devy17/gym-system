@@ -45,8 +45,11 @@ public class AccessView {
 
     public static User findUserForUserList(List<User> userList) {
         for (User user : userList) {
+            String phoneNum = user.getPhoneNumber();
+            phoneNum = "010-****-" +  phoneNum.substring(phoneNum.lastIndexOf("-") + 1);
+
             System.out.printf("%d. %s(%s) 등록 날짜 : %s\n",
-                    user.getUserId(), user.getUserName(), user.getPhoneNumber(), user.getRegistDate().toString());
+                    user.getUserId(), user.getUserName(), phoneNum, user.getRegistDate().toString());
         }
         int selectNum = inputInteger(">>> ");
         for (User user : userList) {
@@ -81,6 +84,19 @@ public class AccessView {
         for (Access access : userMap.keySet()) {
             User user = userMap.get(access);
             System.out.printf("# 날짜 : %s, 회원명 %s(%s)", access.getAccessDate().toString(), user.getUserName(), user.getPhoneNumber());
+        }
+    }
+
+    public static boolean requestMembershipExtend() {
+        System.out.println("# 회원님의 회원권 기간이 만료되었습니다. \n회원권 및 상품 결제 화면으로 이동하시겠습니까? (y/n)");
+        while (true) {
+            String inputStr = inputString(">>> ");
+            switch (inputStr) {
+                case "y", "Y": return true;
+                case "n", "N": return false;
+                default:
+                    System.out.println("# 잘못된 입력값입니다. 다시 입력해주세요.\n");
+            }
         }
     }
 }

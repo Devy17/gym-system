@@ -11,22 +11,15 @@ import gym.product.service.ProductService;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import gym.membership.view.MembershipView;
+
+
 public class OrderView {
 
     public static void purchaseMembershipView() {
-        List<Membership> membershipOptions = MembershipService.getMembershipOptions();
         System.out.println("\n# 구매하시려는 회원권을 선택해주세요.");
-
-        for (int i = 1; i <= membershipOptions.size(); i++) {
-            Membership membership = membershipOptions.get(i - 1);
-
-            DecimalFormat formatter = new DecimalFormat("#,###");
-            String formattedPrice = formatter.format(membership.getPrice());
-
-            System.out.println("### " + i + ". "
-                    + membership.getPeriod() + "개월 - " + formattedPrice + "원");
-        }
-
+        // 회원권 조회 로직
+        MembershipView.findMembershipView();
 
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {

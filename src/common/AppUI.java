@@ -1,8 +1,11 @@
 package common;
 
 import gym.access.service.AccessService;
-import gym.access.view.AccessView;
+import gym.membership.view.MembershipView;
 import gym.order.view.OrderView;
+
+import gym.user.service.UserService;
+import gym.product.view.ProductView;
 import gym.user.view.UserView;
 
 import java.util.InputMismatchException;
@@ -12,6 +15,7 @@ public class AppUI {
     private static final Scanner sc = new Scanner(System.in);
 
     private static final AccessService accessService = new AccessService();
+    private static final UserService userService = new UserService();
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -84,6 +88,7 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                userService.showAllUsers();
                 break;
             case 2:
                 productMenuScreen();
@@ -146,7 +151,8 @@ public class AppUI {
             case 1:
                 break;
             case 2:
-                userOrderMenuScreen();
+                // 상품 추가
+                ProductView.addProductView();
                 break;
             case 3:
                 return;
@@ -158,17 +164,18 @@ public class AppUI {
 
     public static void membershipMenuScreen() {
         System.out.println("\n========= 상품 메뉴 =========");
-        System.out.println("### 1. 상품 조회");
-        System.out.println("### 2. 상품 추가");
+        System.out.println("### 1. 회원권 조회");
+        System.out.println("### 2. 회원권 추가");
         System.out.println("### 3. 이전 화면으로 가기");
         makeLine();
 
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                MembershipView.findMembershipView();
                 break;
             case 2:
-                userOrderMenuScreen();
+                MembershipView.addMembershipView();
                 break;
             case 3:
                 return;
