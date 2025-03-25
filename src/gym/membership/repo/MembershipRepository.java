@@ -17,6 +17,7 @@ public class MembershipRepository {
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
                 membershipList.add(new Membership(
