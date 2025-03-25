@@ -42,7 +42,7 @@ public abstract class AppUI {
         System.out.println("### 2. 관리자 메뉴");
         System.out.println("### 3. 프로그램 종료");
         makeLine();
-        
+
         int selectNum = inputInteger(">>> ");
         switch (selectNum) {
             case 1:
@@ -51,7 +51,7 @@ public abstract class AppUI {
             case 2:
                 System.out.println("# 비밀번호를 입력하세요");
                 String input = inputString(">>> ");
-                if(input.equals("admin")) {
+                if (input.equals("admin")) {
                     managerMenuScreen();
                 } else {
                     System.out.println("# 잘못된 비밀번호입니다.");
@@ -82,7 +82,7 @@ public abstract class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
+        switch (selectNum) {
             case 1:
                 break;
             case 2:
@@ -117,7 +117,7 @@ public abstract class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
+        switch (selectNum) {
             case 1:
                 break;
             case 2:
@@ -142,7 +142,7 @@ public abstract class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
+        switch (selectNum) {
             case 1:
                 break;
             case 2:
@@ -164,7 +164,7 @@ public abstract class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
+        switch (selectNum) {
             case 1:
                 break;
             case 2:
@@ -187,7 +187,7 @@ public abstract class AppUI {
         makeLine();
 
         int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
+        switch (selectNum) {
             case 1:
                 UserView.addUserView();
                 break;
@@ -212,7 +212,7 @@ public abstract class AppUI {
         System.out.println("### 3. 이전으로 돌아가기");
 
         int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
+        switch (selectNum) {
             case 1:
                 OrderView.purchaseMembershipView();
                 break;

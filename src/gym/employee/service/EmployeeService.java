@@ -1,13 +1,11 @@
 package gym.employee.service;
 
+// 수정된 EmployeeService.java
 import common.AppUI;
 import gym.employee.domain.Employee;
 import gym.employee.repo.EmployeeRepository;
 
 import java.util.List;
-
-import static common.AppUI.inputInteger;
-import static common.AppUI.inputString;
 
 public class EmployeeService extends AppUI {
 
@@ -15,27 +13,20 @@ public class EmployeeService extends AppUI {
 
     @Override
     public void start() {
+
         while (true) {
             employeeMenuScreen();
             int selection = inputInteger(">>> ");
-
             switch (selection) {
-                case 1:
-                    getAllEmployees();
-                    break;
-                case 2:
-                    addEmployee();
-                    break;
-                case 3:
-                    updateEmployee();
-                    break;
-                case 4:
-                    deleteEmployee();
-                    break;
-                case 5:
+                case 1 -> getAllEmployees();
+                case 2 -> addEmployee();
+                case 3 -> updateEmployee();
+                case 4 -> deleteEmployee();
+                case 5 -> {
+                    System.out.println("# 이전 화면으로 돌아갑니다.");
                     return;
-                default:
-                    System.out.println("올바른 메뉴를 선택하세요.");
+                }
+                default -> System.out.println("# 올바른 메뉴를 선택하세요.");
             }
         }
     }
@@ -44,15 +35,12 @@ public class EmployeeService extends AppUI {
     private void getAllEmployees() {
         try {
             List<Employee> employeeDatabase = employeeRepository.getAllEmployees();
-            int employeeCount = employeeDatabase.size();
-            if (employeeCount > 0) {
-                System.out.printf("\n====== 검색 결과(총 %d건) ======\n", employeeCount);
-                for (Employee employee : employeeDatabase) {
-                    System.out.println(employee);
-                }
-            } else {
+            if (employeeDatabase == null || employeeDatabase.isEmpty()) {
                 System.out.println("\n### 검색 결과가 없습니다.");
+                return;
             }
+            System.out.printf("\n====== 검색 결과(총 %d건) ======\n", employeeDatabase.size());
+            employeeDatabase.forEach(System.out::println);
         } catch (Exception e) {
             System.out.println("\n### 직원 조회 중 오류가 발생했습니다: " + e.getMessage());
         }
@@ -77,71 +65,70 @@ public class EmployeeService extends AppUI {
         System.out.println("\n====== 직원 정보를 수정합니다. ======");
         String targetName = inputString("# 수정할 직원명: ");
 
-        List<Employee> employeeDatabase = employeeRepository.getAllEmployees();
-        if (employeeDatabase == null || employeeDatabase.isEmpty()) {
-            System.out.println("\n### 직원 목록이 비어 있습니다.");
-            return;
+        try {
+            List<Employee> employeeDatabase = employeeRepository.getAllEmployees();
+            if (employeeDatabase == null || employeeDatabase.isEmpty()) {
+                System.out.println("\n### 직원 목록이 비어 있습니다.");
+                return;
+            }
+
+            Employee employee = employeeDatabase.stream()
+                    .filter(e -> e.getEmployeeName().equals(targetName))
+                    .findFirst()
+                    .orElse(null);
+
+            if (employee == null) {
+                System.out.printf("\n### [%s] 이름을 가진 직원이 없습니다.\n", targetName);
+                return;
+            }
+
+            System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
+            employee.setEmployeeId(inputInteger("# 새로운 직원번호: "));
+            employee.setEmployeeName(inputString("# 새로운 직원명: "));
+            employee.setEmployeePart(inputString("# 새로운 부서명: "));
+            employee.setEmployeeActiveStatus(inputInteger("# 활성 상태 (1: 활성, 0: 비활성): ") == 1);
+
+            employeeRepository.updateEmployee(employee);
+            System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employee.getEmployeeName());
+        } catch (Exception e) {
+            System.out.println("\n### 직원 수정 중 오류가 발생했습니다: " + e.getMessage());
         }
-
-        // 이름으로 직원 검색
-        Employee employee = employeeDatabase.stream()
-                .filter(e -> e.getEmployeeName().equals(targetName))
-                .findFirst()
-                .orElse(null);
-
-        if (employee == null) {
-            System.out.printf("\n### [%s] 이름을 가진 직원이 없습니다.\n", targetName);
-            return;
-        }
-
-        System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
-        int employeeId = inputInteger("# 새로운 직원번호: ");
-        String employeeName = inputString("# 새로운 직원명: ");
-        String employeePart = inputString("# 새로운 부서명: ");
-        boolean employeeActiveStatus = inputInteger("# 활성 상태 (1: 활성, 0: 비활성): ") == 1;
-
-        employee.setEmployeeId(employeeId);
-        employee.setEmployeeName(employeeName);
-        employee.setEmployeePart(employeePart);
-        employee.setEmployeeActiveStatus(employeeActiveStatus);
-
-        employeeRepository.updateEmployee(employee);
-
-        System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employeeName);
     }
 
     // 직원 정보 삭제
-    public void deleteEmployee() {
+    private void deleteEmployee() {
         System.out.println("\n====== 직원 정보를 삭제합니다. ======");
-        int employeeId = inputInteger("# 삭제할 직원번호: ");
+        String targetName = inputString("# 삭제할 직원명: ");
 
-        // 직원 검색 (전체 리스트에서 검색)
-        List<Employee> employees = employeeRepository.getAllEmployees(); // 전체 직원 목록 가져오기
-        Employee targetEmployee = null;
-
-        for (Employee employee : employees) {
-            if (employee.getEmployeeId() == employeeId) {
-                targetEmployee = employee;
-                break;
+        try {
+            Employee employee = findEmployeeByName(targetName);
+            if (employee == null) {
+                System.out.println("\n### 해당 직원명으로 조회된 직원이 없습니다.");
+                return;
             }
-        }
 
-        if (targetEmployee == null) {
-            System.out.println("\n### 해당 직원번호로 조회된 직원이 없습니다.");
-            return;
-        }
-
-        System.out.printf("\n### [%s] 직원 정보를 삭제합니다.\n", targetEmployee.getEmployeeId());
-        String confirm = inputString("# 정말 삭제하시겠습니까? (Y/N): ");
-        if (confirm.equalsIgnoreCase("Y")) {
-            boolean success = employees.remove(targetEmployee); // 리스트에서 직원 제거
-            if (success) {
-                System.out.printf("\n### [%s] 직원 정보가 삭제되었습니다.\n", targetEmployee.getEmployeeId());
+            System.out.printf("\n### [%s] 직원 정보를 삭제합니다.\n", employee.getEmployeeName());
+            String confirm = inputString("# 정말 삭제하시겠습니까? (Y/N): ");
+            if (confirm.equalsIgnoreCase("Y")) {
+                employeeRepository.deleteEmployee(employee.getEmployeeId());
+                System.out.printf("\n### [%s] 직원 정보가 삭제되었습니다.\n", employee.getEmployeeName());
             } else {
-                System.out.println("\n### 직원 삭제 중 오류가 발생했습니다.");
+                System.out.println("\n### 삭제가 취소되었습니다.");
             }
-        } else {
-            System.out.println("\n### 삭제가 취소되었습니다.");
+        } catch (Exception e) {
+            System.out.println("\n### 직원 삭제 중 오류가 발생했습니다: " + e.getMessage());
+
         }
+    }
+
+    // 이름으로 직원 검색 (재사용 가능)
+    private Employee findEmployeeByName(String employeeName) {
+        List<Employee> employees = employeeRepository.getAllEmployees();
+        if (employees == null || employees.isEmpty()) return null;
+
+        return employees.stream()
+                .filter(e -> e.getEmployeeName().equals(employeeName))
+                .findFirst()
+                .orElse(null);
     }
 }
