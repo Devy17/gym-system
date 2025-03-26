@@ -1,4 +1,4 @@
-package status.domain;
+package gym.status.domain;
 
 import java.time.LocalDate;
 
