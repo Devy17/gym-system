@@ -1,11 +1,11 @@
 package gym.employee.service;
 
-// 수정된 EmployeeService.java
 import common.AppUI;
 import gym.employee.domain.Employee;
 import gym.employee.repo.EmployeeRepository;
 
 import java.util.List;
+import java.util.Random;
 
 import static common.AppUI.inputString;
 
@@ -31,6 +31,7 @@ public class EmployeeService {
     // 직원 정보 추가
     public void addEmployee() {
         System.out.println("\n====== 직원 정보를 추가합니다. ======");
+
         String employeeName = inputString("# 직원명: ");
         String Part = inputString("# 부서명: ");
 
@@ -65,6 +66,7 @@ public class EmployeeService {
             }
 
             System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
+
             employee.setEmployeeName(inputString("# 새로운 직원명: "));
             employee.setPart(inputString("# 새로운 부서명: "));
 
@@ -112,4 +114,22 @@ public class EmployeeService {
                 .findFirst()
                 .orElse(null);
     }
+
+
+    public int getRandomEmployeeId() {
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        if (employeeList == null || employeeList.isEmpty()) {
+            return -1;
+        }
+
+        // 랜덤으로 직원 선택
+        Random random = new Random();
+        int randomIndex = random.nextInt(employeeList.size());
+        Employee selectedEmployee = employeeList.get(randomIndex);
+
+        return selectedEmployee.getEmployeeId();
+    }
 }
+
+

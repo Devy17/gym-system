@@ -1,48 +1,48 @@
 package gym.employee.domain;
 
 public class Employee {
-
-    private int employeeId;
-    private String employeeName;
+    private int employee_Id;
+    private String employee_Name;
     private String Part;
-    private boolean employeeActive;
+    private boolean employee_Active;
 
     public Employee() {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
+        this.employee_Id = employee_Id;
+        this.employee_Name = employee_Name;
         this.Part = Part;
-        this.employeeActive = employeeActive;
+        this.employee_Active = employee_Active;
     }
 
     public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
-        if (employeeName == null || employeeName.isEmpty()) {
+      if (employeeName == null || employeeName.isEmpty()) {
             throw new IllegalArgumentException("Employee name cannot be null or empty.");
         }
-        this.employeeName = employeeName;
+        this.employee_Id = employeeId;
+        this.employee_Name = employeeName;
         this.Part = part;
-        this.employeeId = employeeId;
-        this.employeeActive = employeeActive;
+        this.employee_Active = employeeActive;
     }
 
     public int getEmployeeId() {
-        return employeeId;
+        return employee_Id;
     }
 
     public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+        this.employee_Id = employeeId;
     }
 
     public String getEmployeeName() {
-        return employeeName;
+        return employee_Name;
     }
 
     public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+        this.employee_Name = employeeName;
     }
 
     public String getPart() {
         return Part;
     }
+
 
     public void setPart(String part) {
         this.Part = part;
@@ -52,10 +52,11 @@ public class Employee {
 
     public boolean getEmployeeActive() {
         return employeeActive;
+
     }
 
     public void setEmployeeActive(boolean employeeActive) {
-        this.employeeActive = employeeActive;
+        this.employee_Active = employee_Active;
     }
 
 
@@ -69,7 +70,6 @@ public class Employee {
                 "}";
     }
 }
-
 
 
 

@@ -1,6 +1,10 @@
 package gym.employee.repo;
 
 import gym.employee.domain.Employee;
+import gym.membership.domain.Membership;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import jdbc.DBConnectionManager;
 
 import java.sql.*;
@@ -27,6 +31,7 @@ public class EmployeeRepository {
                 // "Y" 값을 boolean으로 변환
                 employee.setEmployeeActive(true);
 
+
                 employeeList.add(employee);
             }
 
@@ -36,6 +41,7 @@ public class EmployeeRepository {
 
         return employeeList;
     }
+
     // 직원 추가
     public boolean addEmployee(Employee employee) {
         if (employee.getEmployeeName() == null || employee.getEmployeeName().isEmpty()) {
@@ -60,14 +66,17 @@ public class EmployeeRepository {
     }
 
 
+
     // 직원 수정
     public boolean updateEmployee(Employee employee) {
         String sql = "UPDATE employees SET employee_name = ?, part = ? WHERE employee_id = ?";
+
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, employee.getEmployeeName());
             ps.setString(2, employee.getPart());
+
             ps.setInt(3, employee.getEmployeeId()); // employee_id 매개변수 설정 추가
 
             return ps.executeUpdate() > 0;
@@ -77,7 +86,6 @@ public class EmployeeRepository {
             return false;
         }
     }
-
 
     // 직원 비활성화
     public boolean deactivateEmployee(int id) {
@@ -92,5 +100,27 @@ public class EmployeeRepository {
             e.printStackTrace();
             return false;
         }
+    }
+
+
+    public List<Employee> findAll() {
+        List<Employee> employeeList = new ArrayList<>();
+        String sql = "SELECT * FROM employees WHERE employee_active = 'Y'";
+        try (Connection conn = DBConnectionManager.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next()) {
+                employeeList.add(new Employee(
+                        rs.getInt("employee_id"),
+                        rs.getString("employee_name"),
+                        rs.getString("part")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return employeeList;
     }
 }
