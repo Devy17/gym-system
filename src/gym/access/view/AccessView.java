@@ -81,7 +81,7 @@ public class AccessView {
     public static void showAccessByDate(Map<Access, User> userMap) {
         for (Access access : userMap.keySet()) {
             User user = userMap.get(access);
-            System.out.printf("# 날짜 : %s, 회원명 %s(%s)", access.getAccessDate().toString(), user.getUserName(), user.getPhoneNumber());
+            System.out.printf("# 날짜 : %s, 회원명 %s(%s)\n", access.getAccessDate().toString(), user.getUserName(), user.getPhoneNumber());
         }
     }
 
