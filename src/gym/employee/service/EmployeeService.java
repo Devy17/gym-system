@@ -55,24 +55,53 @@ public class EmployeeService {
                 return;
             }
 
-            Employee employee = employeeDatabase.stream()
+            // 해당 이름을 가진 직원들 필터링
+            List<Employee> employeesWithTargetName = employeeDatabase.stream()
                     .filter(e -> e.getEmployeeName().equals(targetName))
-                    .findFirst()
-                    .orElse(null);
+                    .toList();
 
-            if (employee == null) {
+            if (employeesWithTargetName.isEmpty()) {
                 System.out.printf("\n### [%s] 이름을 가진 직원이 없습니다.\n", targetName);
                 return;
             }
 
-            System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
+            if (employeesWithTargetName.size() > 1) {
+                // 동명이인이 있을 경우 메시지 출력
+                System.out.println("\n### 동명이인이 발견되었습니다. 아래 목록에서 employeeId를 선택하세요:");
+                for (Employee emp : employeesWithTargetName) {
+                    System.out.printf("employeeId: %d, 이름: %s, 부서: %s\n", emp.getEmployeeId(), emp.getEmployeeName(), emp.getPart());
+                }
 
-            employee.setEmployeeName(inputString("# 새로운 직원명: "));
-            employee.setPart(inputString("# 새로운 부서명: "));
+                System.out.print("\n# 수정할 employeeId를 입력하세요: ");
+                int selectedId = Integer.parseInt(inputString(""));
 
-            employeeRepository.updateEmployee(employee);
+                // 선택된 ID가 유효한지 확인
+                Employee selectedEmployee = employeesWithTargetName.stream()
+                        .filter(e -> e.getEmployeeId() == selectedId)
+                        .findFirst()
+                        .orElse(null);
 
-            System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employee.getEmployeeName());
+                if (selectedEmployee == null) {
+                    System.out.println("\n### 유효하지 않은 employeeId입니다. 작업을 종료합니다.");
+                    return;
+                }
+
+                System.out.printf("\n### [%d] 직원의 정보를 수정합니다.\n", selectedEmployee.getEmployeeId());
+                selectedEmployee.setEmployeeName(inputString("# 새로운 직원명: "));
+                selectedEmployee.setPart(inputString("# 새로운 부서명: "));
+                employeeRepository.updateEmployee(selectedEmployee);
+
+                System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", selectedEmployee.getEmployeeName());
+            } else {
+                // 유일한 직원일 경우 바로 수정
+                Employee employee = employeesWithTargetName.get(0);
+                System.out.printf("\n### [%d] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
+                employee.setEmployeeName(inputString("# 새로운 직원명: "));
+                employee.setPart(inputString("# 새로운 부서명: "));
+                employeeRepository.updateEmployee(employee);
+
+                System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employee.getEmployeeName());
+            }
         } catch (Exception e) {
             System.out.println("\n### 직원 수정 중 오류가 발생했습니다: " + e.getMessage());
         }
