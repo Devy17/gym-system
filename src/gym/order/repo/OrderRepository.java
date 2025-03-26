@@ -26,13 +26,13 @@ public class OrderRepository {
      * @param employeeId
      * @return
      */
-   public boolean insertOrder(int userId, int membershipId, int employeeId) {
-        String sql =
+    public boolean insertOrder(int userId, int membershipId, int employeeId) {
+        String query =
                 "INSERT INTO orders (order_id, user_id, membership_id, order_date, employee_id) " +
                         "VALUES (orders_seq.NEXTVAL, ?, ?, SYSDATE, ?)";
 
         try (Connection conn = DBConnectionManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, userId);
             pstmt.setInt(2, membershipId);
@@ -55,13 +55,13 @@ public class OrderRepository {
      * @param productId
      * @return
      */
-    public boolean insertOrder(int userId, int membershipId, int productId, int employeeId) {
-        String sql =
+    public boolean insertOrder(int userId, int membershipId, int employeeId, int productId) {
+        String query =
                 "INSERT INTO orders (order_id, user_id, membership_id, product_id, order_date, employee_id) " +
                         "VALUES (orders_seq.NEXTVAL, ?, ?, ?, SYSDATE, ?)";
 
         try (Connection conn = DBConnectionManager.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, userId);
             pstmt.setInt(2, membershipId);
@@ -90,7 +90,7 @@ public class OrderRepository {
                 "ON o.product_id = p.product_id ";
 
         try (Connection conn = DBConnectionManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
