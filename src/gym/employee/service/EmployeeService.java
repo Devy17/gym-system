@@ -7,7 +7,9 @@ import gym.employee.repo.EmployeeRepository;
 
 import java.util.List;
 
-public class EmployeeService extends AppUI {
+import static common.AppUI.inputString;
+
+public class EmployeeService {
 
     private EmployeeRepository employeeRepository = new EmployeeRepository();
 
@@ -29,14 +31,14 @@ public class EmployeeService extends AppUI {
     // 직원 정보 추가
     public void addEmployee() {
         System.out.println("\n====== 직원 정보를 추가합니다. ======");
-        int employeeId = inputInteger("# 직원번호: ");
         String employeeName = inputString("# 직원명: ");
         String Part = inputString("# 부서명: ");
 
-        Employee employee = new Employee(employeeId, employeeName, Part, true);
+        Employee employee = new Employee();
+        employee.setEmployeeName(employeeName); // 이름 설정
+        employee.setPart(Part);  // 부서 설정
 
         employeeRepository.addEmployee(employee);
-
         System.out.printf("\n### [%s] 정보가 정상적으로 추가되었습니다.\n", employeeName);
     }
 
@@ -63,17 +65,8 @@ public class EmployeeService extends AppUI {
             }
 
             System.out.printf("\n### [%s] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
-            employee.setEmployeeId(inputInteger("# 새로운 직원번호: "));
             employee.setEmployeeName(inputString("# 새로운 직원명: "));
             employee.setPart(inputString("# 새로운 부서명: "));
-            String activeStatus = inputString("# 활성화 상태 (Y/N): ");
-            if (activeStatus.equalsIgnoreCase("Y")) {
-                employee.setEmployeeActive(true); // 활성 상태 설정
-            } else if (activeStatus.equalsIgnoreCase("N")) {
-                employee.setEmployeeActive(false); // 비활성 상태 설정
-            } else {
-                System.out.println("잘못된 입력입니다. 활성화 상태는 Y 또는 N으로 입력해야 합니다.");
-            }
 
             employeeRepository.updateEmployee(employee);
 
