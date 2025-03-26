@@ -1,8 +1,8 @@
 package common;
 
 import gym.access.service.AccessService;
-import gym.access.view.AccessView;
 import gym.employee.service.EmployeeService;
+import gym.membership.domain.Membership;
 import gym.membership.view.MembershipView;
 import gym.order.service.OrderService;
 import gym.order.view.OrderView;
@@ -12,6 +12,7 @@ import gym.product.view.ProductView;
 import gym.user.view.UserView;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class AppUI {
@@ -167,7 +168,7 @@ public class AppUI {
                 ProductView.showProductView();
                 break;
             case 2:
-                userOrderMenuScreen();
+                ProductView.addProductView();
                 break;
             case 3:
                 return;
@@ -178,18 +179,20 @@ public class AppUI {
     }
 
     public static void membershipMenuScreen() {
-        System.out.println("\n========= 상품 메뉴 =========");
-        System.out.println("### 1. 상품 조회");
-        System.out.println("### 2. 상품 추가");
+        System.out.println("\n========= 회원권 메뉴 =========");
+        System.out.println("### 1. 화원권 조회");
+        System.out.println("### 2. 회워권 추가");
         System.out.println("### 3. 이전 화면으로 가기");
         makeLine();
 
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                List<Membership> memberships = MembershipView.findMembershipView();
+                if (memberships.isEmpty()) System.out.println("# 등록된 회원권이 없습니다.");
                 break;
             case 2:
-                userOrderMenuScreen();
+                MembershipView.addMembershipView();
                 break;
             case 3:
                 return;

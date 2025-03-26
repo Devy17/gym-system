@@ -5,11 +5,12 @@ import gym.order.service.OrderService;
 import gym.product.domain.Product;
 import gym.employee.service.EmployeeService;
 import gym.membership.view.MembershipView;
+import gym.product.view.ProductView;
 import gym.user.domain.User;
 import gym.user.service.UserService;
 import gym.order.domain.Order;
-import status.domain.Status;
-import status.service.StatusService;
+import gym.status.domain.Status;
+import gym.status.service.StatusService;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -45,7 +46,7 @@ public class OrderView {
 
         List<Membership> memberships = MembershipView.findMembershipView(); // 등록된 회원권 목록 가져오기
         if (memberships.isEmpty()) {
-            System.out.println("# 등록된 상품이 없습니다.");
+            System.out.println("# 등록된 회원권이 없습니다.");
             return;
         }
 
@@ -78,30 +79,19 @@ public class OrderView {
             return;
         }
 
-        List<Product> productOptions = orderService.getProductOptionService(); // 상품 목록 가져오기
-        if (productOptions.isEmpty()) {
+        List<Product> products = ProductView.findProductView(); // 상품 목록 가져오기
+        if (products.isEmpty()) {
             System.out.println("등록된 상품이 없습니다.");
             return;
         }
 
-        // 상품 목록을 출력하고 선택
-        for (int i = 1; i <= productOptions.size(); i++) {
-            Product product = productOptions.get(i - 1);
-            DecimalFormat formatter = new DecimalFormat("#,###");
-            String formattedPrice = formatter.format(product.getPrice());
-            System.out.println("### " + i + ". "
-                    + product.getProductName() + "개월 - " + formattedPrice + "원");
-        }
-
-        int selectedProductNum = getUserSelection(productOptions.size(), "구매할 상품 번호를 입력하세요: ");
+        int selectedProductNum = getUserSelection(products.size(), "구매할 상품 번호를 입력하세요: ");
         if (selectedProductNum == -1) return; // 잘못된 선택 시 종료
-
-        Product selectedProduct = productOptions.get(selectedProductNum - 1); // 선택된 상품
 
         // 회원권 목록 출력 및 선택
         List<Membership> memberships = MembershipView.findMembershipView();
         if (memberships.isEmpty()) {
-            System.out.println("등록된 상품이 없습니다.");
+            System.out.println("등록된 회원권이 없습니다.");
             return;
         }
 
@@ -109,10 +99,10 @@ public class OrderView {
         if (selectedMembershipNum == -1) return; // 잘못된 선택 시 종료
 
         // 상품 & 회원권 등록
-        orderService.purchaseProduct(userId, selectedMembershipNum, employeeId, selectedProductNum);
+        orderService.purchaseProduct(userId, memberships.get(selectedMembershipNum - 1).getMembershipId(), employeeId, products.get(selectedProductNum - 1).getProductId());
 
         // 회원 상태 업데이트
-        updateUserStatus(userId, memberships.get(selectedMembershipNum - 1), selectedProduct);
+        updateUserStatus(userId, memberships.get(selectedMembershipNum - 1), products.get(selectedProductNum - 1));
     }
 
     /**

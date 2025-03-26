@@ -77,14 +77,33 @@ public class AccessRepository {
 
     public Map<Access, User> searchAccessByDate(String yearStr, String monthStr) {
         Map<Access, User> map = new HashMap<>();
-        String sql = "SELECT * FROM accesses a JOIN users u ON a.user_id = u.user_id WHERE a.access_date LIKE ?";
-        if(Integer.parseInt(monthStr) < 10) {
-            monthStr += "0";
+        String sql = "SELECT * FROM accesses a JOIN users u ON a.user_id = u.user_id " +
+                "WHERE a.access_date BETWEEN TO_DATE(?, 'YYYYMMDD') AND TO_DATE(?, 'YYYYMMDD') - 1 ";
+        int year = Integer.parseInt(yearStr);
+        int month = Integer.parseInt(monthStr);
+
+        String afterYear = "";
+        String afterMonth = "";
+
+        if(month == 12) {
+            afterYear = Integer.toString(++year);
+            afterMonth = "01";
+        } else {
+            afterYear = yearStr;
+            if(month < 10) {
+                monthStr = "0" + month;
+                afterMonth = month < 9 ? "0" + (++month) : "10";
+            }
         }
+
+        String beforeDate = yearStr + monthStr + "01";
+        String afterDate = afterYear + afterMonth + "01";
+
 
         try (Connection conn = DBConnectionManager.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, yearStr + "-" + monthStr + "%");
+            pstmt.setString(1, beforeDate);
+            pstmt.setString(2, afterDate);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {

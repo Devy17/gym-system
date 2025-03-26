@@ -26,7 +26,7 @@ public class OrderRepository {
      * @param employeeId
      * @return
      */
-   public boolean insertOrder(int userId, int membershipId, int employeeId) {
+    public boolean insertOrder(int userId, int membershipId, int employeeId) {
         String query =
                 "INSERT INTO orders (order_id, user_id, membership_id, order_date, employee_id) " +
                         "VALUES (orders_seq.NEXTVAL, ?, ?, SYSDATE, ?)";
@@ -90,7 +90,7 @@ public class OrderRepository {
                 "ON o.product_id = p.product_id ";
 
         try (Connection conn = DBConnectionManager.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -112,7 +112,7 @@ public class OrderRepository {
                 ));
                 order.setEmployee(new Employee(
                         0, rs.getString("employee_name"),
-                        rs.getString("employee_part")
+                        rs.getString("part")
                 ));
                 order.setMembership(new Membership(
                         rs.getInt("period"),

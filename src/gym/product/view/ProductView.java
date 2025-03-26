@@ -3,6 +3,8 @@ package gym.product.view;
 import static common.AppUI.inputInteger;
 import static common.AppUI.inputString;
 
+import gym.membership.domain.Membership;
+import gym.membership.service.MembershipService;
 import gym.order.service.OrderService;
 import gym.product.domain.Product;
 import gym.product.service.ProductService;
@@ -13,6 +15,25 @@ import java.util.List;
 public class ProductView {
 
     private static final OrderService orderService = new OrderService();
+
+    /**
+     * 회원권 조회
+     */
+    public static List<Product> findProductView() {
+        List<Product> ProductOptions = ProductService.getProductOptions();
+
+        for (int i = 1; i <= ProductOptions.size(); i++) {
+            Product product = ProductOptions.get(i - 1);
+
+            DecimalFormat formatter = new DecimalFormat("#,###");
+            String formattedPrice = formatter.format(product.getPrice());
+
+            System.out.println("### " + i + ". "
+                    + product.getProductName() + " - " + formattedPrice + "원");
+        }
+
+        return ProductOptions;
+    }
 
     /**
      * 상품 추가

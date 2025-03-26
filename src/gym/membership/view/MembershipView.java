@@ -14,6 +14,7 @@ public class MembershipView {
      */
     public static List<Membership> findMembershipView() {
         List<Membership> membershipOptions = MembershipService.getMembershipOptions();
+
         for (int i = 1; i <= membershipOptions.size(); i++) {
             Membership membership = membershipOptions.get(i - 1);
 

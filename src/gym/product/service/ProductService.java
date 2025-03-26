@@ -8,10 +8,10 @@ import java.util.List;
 
 public class ProductService {
 
-    private final ProductRepository productRepository = new ProductRepository();
+    private static final ProductRepository productRepository = new ProductRepository();
 
     // 상품 조회
-    public List<Product> getProductOptions() {
+    public static List<Product> getProductOptions() {
         return productRepository.findAll();
     }
 

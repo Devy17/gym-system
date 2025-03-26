@@ -69,12 +69,7 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "Employee {\n" +
-                "    id: " + employeeId + "\n" +
-                "    name: '" + employeeName + "'\n" +
-                "    part: " + Part + "\n" +
-                "    active: '" + (employeeActive ? "Y" : "N") + "'\n" +
-                "}";
+        return "### 직원이름: " + employeeName + ", 담당직무: " + Part;
     }
 }
 
