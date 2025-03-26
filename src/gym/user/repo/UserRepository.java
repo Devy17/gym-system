@@ -51,8 +51,8 @@ public class UserRepository {
 
     private void userStatus(Connection conn, User user) throws Exception {
 //        String selectSql = "SELECT users_seq.NEXTVAL FROM DUAL ";
-//        String insertStatusSql = "INSERT INTO status (user_id, start_date, remained_month, product_count)" +
-//                "VALUES(?, ?, ?, ?)INSERT INTO status (user_id, start_date, remained_month, product_count)" +
+//        String insertStatusSql = "INSERT INTO gym.status (user_id, start_date, remained_month, product_count)" +
+//                "VALUES(?, ?, ?, ?)INSERT INTO gym.status (user_id, start_date, remained_month, product_count)" +
 //                "VALUES(?, ?, ?, ?)";
         String sql = "INSERT INTO status (user_id, start_date, remained_month, product_count) " +
                 "VALUES (users_seq.CURRVAL, ?, ?, ?)";

@@ -1,11 +1,11 @@
-package status.repo;
+package gym.status.repo;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import jdbc.DBConnectionManager;
-import status.domain.Status;
+import gym.status.domain.Status;
 
 public class StatusRepository {
 
