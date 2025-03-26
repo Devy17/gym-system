@@ -1,7 +1,5 @@
 package status.domain;
 
-import gym.product.domain.Product;
-
 import java.time.LocalDate;
 
 public class Status {
