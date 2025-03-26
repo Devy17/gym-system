@@ -11,12 +11,14 @@ import static common.AppUI.*;
 public class UserService {
     private final UserRepository userRepository = new UserRepository();
 
+
     public User join(String name, String phone) {
         User newUser = new User(name, phone);
         userRepository.addUser(newUser);
-
         return newUser;
     }
+
+
 
     public void updateUserInfo(String name) {
         List<User> userList = userRepository.findByUserName(name);
@@ -68,6 +70,13 @@ public class UserService {
     public void showAllUsers() {
         List<User> userList = userRepository.findAllUser();
         UserView.showAllUsersView(userList);
+    }
+
+    /**
+     * 회원 이름 조회
+     */
+    public List<User> showUserByName(String userName) {
+        return userRepository.findByUserName(userName);
     }
 
 }

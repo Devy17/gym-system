@@ -9,6 +9,9 @@ public class User {
     private LocalDate registDate;
     private boolean userActive;
 
+
+
+
     public User(String userName, String phoneNumber) {
         this.userId = 0;
         this.userName = userName;
