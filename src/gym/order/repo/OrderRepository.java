@@ -82,8 +82,8 @@ public class OrderRepository {
                 "FROM orders o " +
                 "JOIN users u " +
                 "ON o.user_id = u.user_id " +
-                "JOIN members m " +
-                "ON o.member_id = m.member_id " +
+                "JOIN memberships m " +
+                "ON o.membership_id = m.membership_id " +
                 "JOIN employees e " +
                 "ON o.employee_id = e.employee_id " +
                 "LEFT JOIN products p " +

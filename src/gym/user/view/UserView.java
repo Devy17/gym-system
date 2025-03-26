@@ -1,5 +1,6 @@
 package gym.user.view;
 
+import common.AppUI;
 import gym.user.domain.User;
 import gym.user.service.UserService;
 
@@ -17,6 +18,7 @@ public class UserView {
         boolean active = true;
         User newUser = userService.join(name, phone);
         System.out.printf("\n### [%s]님의 회원 가입이 완료되었습니다.\n", newUser.getUserName());
+        AppUI.userOrderMenuScreen();
     }
 
     // 회원 수정 - 기능 없음
@@ -50,7 +52,7 @@ public class UserView {
     public static void showAllUsersView(List<User> userList) {
         System.out.println("\n====== 회원 전체 조회 ======");
         for (User user : userList) {
-            System.out.printf("# %d. %s(%s) 등록 일자 : %s, 활성화 여부: %s",
+            System.out.printf("# %d. %s(%s) 등록 일자 : %s, 활성화 여부: %s\n",
                     user.getUserId(), user.getUserName(), user.getPhoneNumber(), user.getRegistDate().toString(), user.isUserActive() ? "Y" : "N");
         }
         System.out.println();

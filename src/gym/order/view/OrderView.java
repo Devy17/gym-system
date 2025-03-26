@@ -52,7 +52,7 @@ public class OrderView {
         int selectedMembershipNum = getUserSelection(memberships.size(), "구매할 회원권 번호를 입력하세요: ");
         if (selectedMembershipNum == -1) return; // 잘못된 선택 시 종료
 
-        orderService.purchaseMembership(userId, selectedMembershipNum, employeeId); // 회원권 결제 처리
+        orderService.purchaseMembership(userId, memberships.get(selectedMembershipNum - 1).getMembershipId(), employeeId); // 회원권 결제 처리
 
         updateUserStatus(userId, memberships.get(selectedMembershipNum - 1)); // 회원 상태 업데이트
     }
@@ -174,7 +174,7 @@ public class OrderView {
                 System.out.println("# 잘못된 번호입니다. 1부터 " + max + "까지의 번호를 입력해주세요.");
                 return -1;
             }
-            return selection;
+            return selection; // TODO
         } catch (NumberFormatException e) {
             System.out.println("# 숫자만 입력해주세요.");
             return -1;

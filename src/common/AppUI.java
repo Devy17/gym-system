@@ -77,41 +77,43 @@ public class AppUI {
     }
 
     public static void managerMenuScreen() {
-        System.out.println("\n========= 관리자 메뉴 =========");
-        System.out.println("### 1. 회원 정보");
-        System.out.println("### 2. 상품 정보");
-        System.out.println("### 3. 회원권 정보");
-        System.out.println("### 4. 출입 기록 정보");
-        System.out.println("### 5. 직원 정보");
-        System.out.println("### 6. 결제 내역 정보");
-        System.out.println("### 7. 이전 화면으로 가기");
-        makeLine();
+        while (true) {
+            System.out.println("\n========= 관리자 메뉴 =========");
+            System.out.println("### 1. 회원 정보");
+            System.out.println("### 2. 상품 정보");
+            System.out.println("### 3. 회원권 정보");
+            System.out.println("### 4. 출입 기록 정보");
+            System.out.println("### 5. 직원 정보");
+            System.out.println("### 6. 결제 내역 정보");
+            System.out.println("### 7. 이전 화면으로 가기");
+            makeLine();
 
-        int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
-            case 1:
-                userService.showAllUsers();
-                break;
-            case 2:
-                productMenuScreen();
-                break;
-            case 3:
-                membershipMenuScreen();
-                break;
-            case 4:
-                accessService.searchAccessInfoByMonth();
-                break;
-            case 5:
-                employeeMenuScreen();
-                break;
-            case 6:
-                orderService.showAllOrderInfo();
-                break;
-            case 7:
-                break;
-            default:
-                wrongNumber();
-                break;
+            int selectNum = inputInteger(">>> ");
+            switch(selectNum) {
+                case 1:
+                    userService.showAllUsers();
+                    break;
+                case 2:
+                    productMenuScreen();
+                    break;
+                case 3:
+                    membershipMenuScreen();
+                    break;
+                case 4:
+                    accessService.searchAccessInfoByMonth();
+                    break;
+                case 5:
+                    employeeMenuScreen();
+                    break;
+                case 6:
+                    orderService.showAllOrderInfo();
+                    break;
+                case 7:
+                    return;
+                default:
+                    wrongNumber();
+                    break;
+            }
         }
     }
 
@@ -152,6 +154,7 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                ProductView.showProductView();
                 break;
             case 2:
                 // 상품 추가
@@ -189,29 +192,31 @@ public class AppUI {
     }
 
     public static void userMenuScreen() {
-        System.out.println("\n========= 회원 메뉴 =========");
-        System.out.println("### 1. 회원 등록");
-        System.out.println("### 2. 회원권 및 상품 결제");
-        System.out.println("### 3. 출입 관리");
-        System.out.println("### 4. 이전 화면으로 가기");
-        makeLine();
+        while (true) {
+            System.out.println("\n========= 회원 메뉴 =========");
+            System.out.println("### 1. 회원 등록");
+            System.out.println("### 2. 회원권 및 상품 결제");
+            System.out.println("### 3. 출입 관리");
+            System.out.println("### 4. 이전 화면으로 가기");
+            makeLine();
 
-        int selectNum = inputInteger(">>> ");
-        switch(selectNum) {
-            case 1:
-                UserView.addUserView();
-                break;
-            case 2:
-                userOrderMenuScreen();
-                break;
-            case 3:
-                accessService.accessUserService();
-                break;
-            case 4:
-                break;
-            default:
-                wrongNumber();
-                break;
+            int selectNum = inputInteger(">>> ");
+            switch(selectNum) {
+                case 1:
+                    UserView.addUserView();
+                    break;
+                case 2:
+                    userOrderMenuScreen();
+                    break;
+                case 3:
+                    accessService.accessUserService();
+                    break;
+                case 4:
+                    return;
+                default:
+                    wrongNumber();
+                    break;
+            }
         }
     }
 

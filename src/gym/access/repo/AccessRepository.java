@@ -77,7 +77,7 @@ public class AccessRepository {
 
     public Map<Access, User> searchAccessByDate(String yearStr, String monthStr) {
         Map<Access, User> map = new HashMap<>();
-        String sql = "SELECT * FROM accesses a JOIN user u ON a.user_id = u.user_id WHERE a.access_date LIKE ?";
+        String sql = "SELECT * FROM accesses a JOIN users u ON a.user_id = u.user_id WHERE a.access_date LIKE ?";
         if(Integer.parseInt(monthStr) < 10) {
             monthStr += "0";
         }
@@ -107,12 +107,26 @@ public class AccessRepository {
         return map;
     }
 
-    public void updateUserStatus(User user) {
+    public void updateUserProductCountStatus(User user) {
         String sql = "UPDATE status SET product_count = product_count - 1 WHERE user_id = ?";
 
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, user.getUserId());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUserMembershipCountStatus(User user, int period) {
+        String sql = "UPDATE status SET remained_month = ? WHERE user_id = ?";
+
+        try (Connection conn = DBConnectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, user.getUserId());
+            pstmt.setInt(2, period);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
