@@ -82,6 +82,7 @@ public class AppUI {
     }
 
     public static void managerMenuScreen() {
+
         while (true) {
             System.out.println("\n========= 관리자 메뉴 =========");
             System.out.println("### 1. 회원 정보");

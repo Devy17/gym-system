@@ -1,7 +1,6 @@
 package gym.employee.domain;
 
 public class Employee {
-
     private int employee_Id;
     private String employee_Name;
     private String Part;
@@ -15,6 +14,9 @@ public class Employee {
     }
 
     public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
+      if (employeeName == null || employeeName.isEmpty()) {
+            throw new IllegalArgumentException("Employee name cannot be null or empty.");
+        }
         this.employee_Id = employeeId;
         this.employee_Name = employeeName;
         this.Part = part;
@@ -41,12 +43,16 @@ public class Employee {
         return Part;
     }
 
-    public void setPart(String Part) {
-        this.Part = Part;
+
+    public void setPart(String part) {
+        this.Part = part;
     }
 
+
+
     public boolean getEmployeeActive() {
-        return employee_Active;
+        return employeeActive;
+
     }
 
     public void setEmployeeActive(boolean employeeActive) {
@@ -57,16 +63,14 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee {\n" +
-                "    name: '" + employee_Name + "',\n" +
-                "    id: " + employee_Id + ",\n" +
-                "    active: '" + (employee_Active ? "Y" : "N") + "'\n" +
+                "    id: " + employeeId + "\n" +
+                "    name: '" + employeeName + "'\n" +
+                "    part: " + Part + "\n" +
+                "    active: '" + (employeeActive ? "Y" : "N") + "'\n" +
                 "}";
     }
-
-
 }
 
-;
 
 
 
