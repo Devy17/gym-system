@@ -20,13 +20,14 @@ public class EmployeeRepository {
 
             while (rs.next()) {
                 Employee employee = new Employee();
-                employee.setEmployeeId(rs.getInt("id"));
-                employee.setEmployeeName(rs.getString("name"));
+                employee.setEmployeeId(rs.getInt("employee_id"));
+                employee.setEmployeeName(rs.getString("employee_name"));
                 employee.setPart(rs.getString("part"));
 
-                // Active 값을 "Y" 또는 "N"으로 변환
-                String active = rs.getBoolean("Active") ? "Y" : "N";
-                employee.setEmployeeActive(Boolean.parseBoolean(active));
+                // "Y" 또는 "N" 값을 boolean으로 변환
+                String active = rs.getString("employee_active");
+                boolean isActive = "Y".equalsIgnoreCase(active);
+                employee.setEmployeeActive(isActive);
 
                 employeeList.add(employee);
             }
@@ -40,14 +41,14 @@ public class EmployeeRepository {
 
     // 직원 추가
     public boolean addEmployee(Employee employee) {
-        String sql = "INSERT INTO employees (id, name, part, Active) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO employees (employee_id, employee_name, part, employee_active) VALUES (employees_seq.NEXTVAL, ?, ?, ?)";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            ps.setInt(1, employee.getEmployeeId());
-            ps.setString(2, employee.getEmployeeName());
-            ps.setString(3, employee.getPart());
-            ps.setString(4, employee.getEmployeeActive() ? "Y" : "N");
+            ps.setString(1, employee.getEmployeeName());
+            ps.setString(2, employee.getPart());
+            ps.setString(3, "Y"); // Active 상태를 항상 "Y"로 설정
+
             return ps.executeUpdate() > 0;
 
         } catch (SQLException e) {
@@ -58,13 +59,13 @@ public class EmployeeRepository {
 
     // 직원 수정
     public boolean updateEmployee(Employee employee) {
-        String sql = "UPDATE employees SET name = ?, part = ?, Active = ? WHERE id = ?";
+        String sql = "UPDATE employees SET employee_name = ?, part = ?, employee_active = ? WHERE employee_id = ?";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, employee.getEmployeeName());
             ps.setString(2, employee.getPart());
-            ps.setString(3, employee.getEmployeeActive() ? "Y" : "N");
+            ps.setBoolean(3, Boolean.parseBoolean(employee.getEmployeeActive() ? "Y" : "N"));
             ps.setInt(4, employee.getEmployeeId());
             return ps.executeUpdate() > 0;
 

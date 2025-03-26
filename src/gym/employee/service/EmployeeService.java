@@ -33,7 +33,7 @@ public class EmployeeService extends AppUI {
         String employeeName = inputString("# 직원명: ");
         String Part = inputString("# 부서명: ");
 
-        Employee employee = new Employee(employeeId, employeeName, Part, false);
+        Employee employee = new Employee(employeeId, employeeName, Part, true);
 
         employeeRepository.addEmployee(employee);
 
@@ -66,9 +66,17 @@ public class EmployeeService extends AppUI {
             employee.setEmployeeId(inputInteger("# 새로운 직원번호: "));
             employee.setEmployeeName(inputString("# 새로운 직원명: "));
             employee.setPart(inputString("# 새로운 부서명: "));
-            employee.setEmployeeActive(inputInteger("# 활성 상태 (1: 활성, 0: 비활성): ") == 1);
+            String activeStatus = inputString("# 활성화 상태 (Y/N): ");
+            if (activeStatus.equalsIgnoreCase("Y")) {
+                employee.setEmployeeActive(true); // 활성 상태 설정
+            } else if (activeStatus.equalsIgnoreCase("N")) {
+                employee.setEmployeeActive(false); // 비활성 상태 설정
+            } else {
+                System.out.println("잘못된 입력입니다. 활성화 상태는 Y 또는 N으로 입력해야 합니다.");
+            }
 
             employeeRepository.updateEmployee(employee);
+
             System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employee.getEmployeeName());
         } catch (Exception e) {
             System.out.println("\n### 직원 수정 중 오류가 발생했습니다: " + e.getMessage());
