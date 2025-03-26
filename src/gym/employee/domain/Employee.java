@@ -1,54 +1,73 @@
 package gym.employee.domain;
 
 public class Employee {
-    private int employeeId;
-    private String employeeName;
-    private String part;
-    private boolean employeeActive;
 
-    public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.part = part;
-        this.employeeActive = employeeActive;
+    private int employee_Id;
+    private String employee_Name;
+    private String Part;
+    private boolean employee_Active;
+
+    public Employee() {
+        this.employee_Id = employee_Id;
+        this.employee_Name = employee_Name;
+        this.Part = Part;
+        this.employee_Active = employee_Active;
     }
 
-    public Employee(int employeeId, String employeeName, String part) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.part = part;
-        this.employeeActive = true;
+    public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
+        this.employee_Id = employeeId;
+        this.employee_Name = employeeName;
+        this.Part = part;
+        this.employee_Active = employeeActive;
     }
 
     public int getEmployeeId() {
-        return employeeId;
+        return employee_Id;
     }
 
     public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+        this.employee_Id = employeeId;
     }
 
     public String getEmployeeName() {
-        return employeeName;
+        return employee_Name;
     }
 
     public void setEmployeeName(String employeeName) {
-        this.employeeName = employeeName;
+        this.employee_Name = employeeName;
     }
 
     public String getPart() {
-        return part;
+        return Part;
     }
 
-    public void setPart(String part) {
-        this.part = part;
+    public void setPart(String Part) {
+        this.Part = Part;
     }
 
-    public boolean isEmployeeActive() {
-        return employeeActive;
+    public boolean getEmployeeActive() {
+        return employee_Active;
     }
 
     public void setEmployeeActive(boolean employeeActive) {
-        this.employeeActive = employeeActive;
+        this.employee_Active = employee_Active;
     }
+
+
+    @Override
+    public String toString() {
+        return "Employee {\n" +
+                "    name: '" + employee_Name + "',\n" +
+                "    id: " + employee_Id + ",\n" +
+                "    active: '" + (employee_Active ? "Y" : "N") + "'\n" +
+                "}";
+    }
+
+
 }
+
+;
+
+
+
+

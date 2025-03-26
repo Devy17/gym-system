@@ -1,6 +1,8 @@
 package common;
 
 import gym.access.service.AccessService;
+import gym.access.view.AccessView;
+import gym.employee.service.EmployeeService;
 import gym.membership.view.MembershipView;
 import gym.order.service.OrderService;
 import gym.order.view.OrderView;
@@ -17,7 +19,10 @@ public class AppUI {
 
     private static final AccessService accessService = new AccessService();
     private static final UserService userService = new UserService();
+    private static final EmployeeService employeeService = new EmployeeService();
+
     private static final OrderService orderService = new OrderService();
+
 
     public static String inputString(String message) {
         System.out.print(message);
@@ -129,12 +134,16 @@ public class AppUI {
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
+                employeeService.getAllEmployees();
                 break;
             case 2:
+                employeeService.addEmployee();
                 break;
             case 3:
+                employeeService.updateEmployee();
                 break;
             case 4:
+                employeeService.deleteEmployee();
                 break;
             case 5:
                 return;
@@ -157,8 +166,7 @@ public class AppUI {
                 ProductView.showProductView();
                 break;
             case 2:
-                // 상품 추가
-                ProductView.addProductView();
+                userOrderMenuScreen();
                 break;
             case 3:
                 return;
@@ -170,18 +178,17 @@ public class AppUI {
 
     public static void membershipMenuScreen() {
         System.out.println("\n========= 상품 메뉴 =========");
-        System.out.println("### 1. 회원권 조회");
-        System.out.println("### 2. 회원권 추가");
+        System.out.println("### 1. 상품 조회");
+        System.out.println("### 2. 상품 추가");
         System.out.println("### 3. 이전 화면으로 가기");
         makeLine();
 
         int selectNum = inputInteger(">>> ");
         switch(selectNum) {
             case 1:
-                MembershipView.findMembershipView();
                 break;
             case 2:
-                MembershipView.addMembershipView();
+                userOrderMenuScreen();
                 break;
             case 3:
                 return;
