@@ -45,7 +45,7 @@ public class OrderView {
 
         List<Membership> memberships = MembershipView.findMembershipView(); // 등록된 회원권 목록 가져오기
         if (memberships.isEmpty()) {
-            System.out.println("# 등록된 상품이 없습니다.");
+            System.out.println("# 등록된 회원권이 없습니다.");
             return;
         }
 
@@ -80,7 +80,7 @@ public class OrderView {
 
         List<Product> productOptions = orderService.getProductOptionService(); // 상품 목록 가져오기
         if (productOptions.isEmpty()) {
-            System.out.println("등록된 상품이 없습니다.");
+            System.out.println("등록된 회원권이 없습니다.");
             return;
         }
 

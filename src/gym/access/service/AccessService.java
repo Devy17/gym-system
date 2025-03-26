@@ -4,14 +4,12 @@ import common.AppUI;
 import gym.access.domain.Access;
 import gym.access.repo.AccessRepository;
 import gym.access.view.AccessView;
-import gym.order.view.OrderView;
 import gym.user.domain.User;
 import gym.user.repo.UserRepository;
 import gym.user.view.UserView;
 
 import gym.domain.Status;
 
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.List;
@@ -38,9 +36,13 @@ public class AccessService {
 
         if(user != null) {
             Status status = accessRepository.checkUserStatus(user);
+            if(status == null){
+                System.out.print("# 회원권/상품 이 확인되지 않습니다. 결재후 이용해주세요.");
+                AppUI.userOrderMenuScreen();
+            }
             int period = status.getRemainedMonth() - Period.between(status.getStartDate(), LocalDate.now()).getDays();
             accessRepository.updateUserMembershipCountStatus(user, period);
-            if(status != null && status.getRemainedMonth() > 0) {
+            if(status.getRemainedMonth() > 0) {
                 // 출입 승인
                 if (status.getProductCount() > 0) {
                     if(AccessView.selectAccessMode()) { // 상품 선택했다면 상품 카운트 - 1

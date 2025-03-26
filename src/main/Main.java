@@ -1,6 +1,5 @@
 package main;
 
-import static common.AppUI.inputInteger;
 import static common.AppUI.startScreen;
 
 public class Main {
@@ -8,7 +7,6 @@ public class Main {
 
         while (true) {
             startScreen();
-
         }
     }
 }
