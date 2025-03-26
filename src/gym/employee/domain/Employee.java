@@ -1,42 +1,49 @@
 package gym.employee.domain;
 
 public class Employee {
-    private int employee_Id;
-    private String employee_Name;
+    private int employeeId;
+    private String employeeName;
     private String Part;
-    private boolean employee_Active;
+    private boolean employeeActive;
 
     public Employee() {
-        this.employee_Id = employee_Id;
-        this.employee_Name = employee_Name;
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
         this.Part = Part;
-        this.employee_Active = employee_Active;
+        this.employeeActive = employeeActive;
+    }
+
+    public Employee(int employeeId, String employeeName, String part) {
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.Part = part;
+        this.employeeActive = true;
     }
 
     public Employee(int employeeId, String employeeName, String part, boolean employeeActive) {
       if (employeeName == null || employeeName.isEmpty()) {
             throw new IllegalArgumentException("Employee name cannot be null or empty.");
         }
-        this.employee_Id = employeeId;
-        this.employee_Name = employeeName;
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
         this.Part = part;
-        this.employee_Active = employeeActive;
+        this.employeeActive = employeeActive;
     }
 
     public int getEmployeeId() {
-        return employee_Id;
+        return employeeId;
     }
 
     public void setEmployeeId(int employeeId) {
-        this.employee_Id = employeeId;
+        this.employeeId = employeeId;
     }
 
     public String getEmployeeName() {
-        return employee_Name;
+        return employeeName;
     }
 
     public void setEmployeeName(String employeeName) {
-        this.employee_Name = employeeName;
+        this.employeeName = employeeName;
     }
 
     public String getPart() {
@@ -56,7 +63,7 @@ public class Employee {
     }
 
     public void setEmployeeActive(boolean employeeActive) {
-        this.employee_Active = employee_Active;
+        this.employeeActive = employeeActive;
     }
 
 

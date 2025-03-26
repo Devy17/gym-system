@@ -119,7 +119,6 @@ public class EmployeeRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
         return employeeList;
     }
