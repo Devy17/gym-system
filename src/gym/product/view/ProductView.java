@@ -15,6 +15,25 @@ public class ProductView {
     private static final OrderService orderService = new OrderService();
 
     /**
+     * 상품 조회
+     */
+    public static List<Product> findProductView() {
+        List<Product> productOptions = ProductService.getProductOptions();
+
+        for (int i = 1; i <= productOptions.size(); i++) {
+            Product product = productOptions.get(i - 1);
+
+            DecimalFormat formatter = new DecimalFormat("#,###");
+            String formattedPrice = formatter.format(product.getPrice());
+
+            System.out.println("### " + i + ". "
+                    + product.getProductName() + " - " + formattedPrice + "원");
+        }
+
+        return productOptions;
+    }
+
+    /**
      * 상품 추가
      */
     public static void addProductView() {
