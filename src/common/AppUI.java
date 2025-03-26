@@ -167,7 +167,7 @@ public class AppUI {
                 ProductView.showProductView();
                 break;
             case 2:
-                userOrderMenuScreen();
+                ProductView.addProductView();
                 break;
             case 3:
                 return;

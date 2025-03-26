@@ -112,7 +112,7 @@ public class OrderRepository {
                 ));
                 order.setEmployee(new Employee(
                         0, rs.getString("employee_name"),
-                        rs.getString("employee_part")
+                        rs.getString("part")
                 ));
                 order.setMembership(new Membership(
                         rs.getInt("period"),
