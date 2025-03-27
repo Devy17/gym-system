@@ -21,7 +21,6 @@ public class AppUI {
     private static final AccessService accessService = new AccessService();
     private static final UserService userService = new UserService();
     private static final EmployeeService employeeService = new EmployeeService();
-
     private static final OrderService orderService = new OrderService();
 
 

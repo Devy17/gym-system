@@ -21,7 +21,7 @@ public class UserService {
 
 
     public void updateUserInfo(String name) {
-        List<User> userList = userRepository.findByUserName(name);
+        List<User> userList = userRepository.findByUserName(name, true);
         if (userList.size() == 1) { // 동명이인 없음
             User user = userList.get(0);
             UserView.updateUserInfoByUser(user);
@@ -75,8 +75,8 @@ public class UserService {
     /**
      * 회원 이름 조회
      */
-    public List<User> showUserByName(String userName) {
-        return userRepository.findByUserName(userName);
+    public List<User> showUserByName(String userName, boolean flag) {
+        return userRepository.findByUserName(userName, flag);
     }
 
 }

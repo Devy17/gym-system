@@ -124,7 +124,7 @@ public class OrderView {
      * 만약 동일 이름의 회원이 여러 명 있으면 목록에서 선택하도록 유도.
      */
     private static int getUserId(String userName) {
-        List<User> userList = userService.showUserByName(userName); // 이름으로 회원 검색
+        List<User> userList = userService.showUserByName(userName, false); // 이름으로 회원 검색
         if (userList.isEmpty()) {
             System.out.println("# 해당 회원이 존재하지 않습니다.");
             return -1; // 회원이 없으면 -1 반환

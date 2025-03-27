@@ -104,13 +104,13 @@ public class UserRepository {
     }
 
 
-    public List<User> findByUserName(String name) {
+    public List<User> findByUserName(String name, boolean flag) {
         List<User> userList = new ArrayList<>();
-        String sql = "SELECT * FROM users WHERE user_name = ? AND user_active = ?";
+        String sql = "SELECT * FROM users WHERE user_name = ? AND user_active ?";
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, name);
-            pstmt.setString(2, "Y");
+            pstmt.setString(2, flag ? "= Y" : "IN('Y', 'N')");
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
