@@ -1,6 +1,7 @@
 package gym.access.view;
 
 import gym.access.domain.Access;
+import gym.user.domain.Status;
 import gym.user.domain.User;
 
 import java.util.List;
@@ -59,8 +60,15 @@ public class AccessView {
         return null;
     }
 
-    public static void accessSuccessful() {
+    public static void accessSuccessful(User user, Status status) {
         System.out.println("# 출입이 정상적으로 처리되었습니다.");
+
+        if(status.getProductCount() <= 0) {
+            System.out.printf("# %s님의 회원권 잔여 일수는 %d일입니다.", user.getUserName(), status.getRemainedMonth());
+        } else {
+            System.out.printf("# %s님의 회원권 잔여 일수는 %d일이고, 상품 잔여 횟수는 %d회 입니다.", user.getUserName(), status.getRemainedMonth(), status.getRemainedMonth());
+        }
+
     }
 
     public static String searchAccessView() {

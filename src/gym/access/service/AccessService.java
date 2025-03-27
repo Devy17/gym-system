@@ -51,7 +51,7 @@ public class AccessService {
                 }
 
                 accessRepository.addAccessData(user);
-                AccessView.accessSuccessful();
+                AccessView.accessSuccessful(user, status);
             } else {
                 if(AccessView.requestMembershipExtend()) {
                     // TODO 주문하는 곳으로 이동
