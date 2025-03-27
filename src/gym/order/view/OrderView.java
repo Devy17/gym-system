@@ -7,6 +7,7 @@ import gym.employee.service.EmployeeService;
 import gym.membership.view.MembershipView;
 import gym.product.view.ProductView;
 import gym.user.domain.User;
+import gym.user.repo.UserRepository;
 import gym.user.service.UserService;
 import gym.order.domain.Order;
 import gym.user.domain.Status;
@@ -21,6 +22,8 @@ public class OrderView {
     private static final EmployeeService employeeService = new EmployeeService();
     private static final StatusService statusService = new StatusService();
     private static final Scanner sc = new Scanner(System.in);
+
+    private static final UserRepository userRepository = new UserRepository();
 
     /**
      * 회원권 결제 화면
@@ -55,6 +58,7 @@ public class OrderView {
         orderService.purchaseMembership(userId, memberships.get(selectedMembershipNum - 1).getMembershipId(), employeeId); // 회원권 결제 처리
 
         updateUserStatus(userId, memberships.get(selectedMembershipNum - 1)); // 회원 상태 업데이트
+
     }
 
     /**

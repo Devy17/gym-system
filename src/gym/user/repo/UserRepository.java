@@ -158,6 +158,19 @@ public class UserRepository {
         }
     }
 
+    public void updateUserActive(int userId, boolean b) {
+        String sql = "UPDATE users SET user_active = ? WHERE user_id = ?";
+        try(Connection conn = DBConnectionManager.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, b ? "Y" : "N");
+            pstmt.setInt(2, userId);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<User> findAllUser() {
         List<User> userList = new ArrayList<>();
         String sql = "SELECT * FROM users";

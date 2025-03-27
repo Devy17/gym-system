@@ -4,10 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import gym.user.domain.User;
 import jdbc.DBConnectionManager;
 import gym.user.domain.Status;
 
 public class StatusRepository {
+    UserRepository userRepository = new UserRepository();
 
     public Status findByRemainedMonth(int userId) {
         String sql = "SELECT * FROM status WHERE user_id = ?";
@@ -47,6 +50,8 @@ public class StatusRepository {
             pstmt.setInt(3, boolMonth ? userId : remainedMonth);
 
             pstmt.executeUpdate();
+
+            userRepository.updateUserActive(userId, true);
         } catch (SQLException e) {
             e.printStackTrace();
         }

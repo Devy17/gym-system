@@ -48,6 +48,7 @@ public class AccessService {
                 if (status.getProductCount() > 0) {
                     if(AccessView.selectAccessMode()) { // 상품 선택했다면 상품 카운트 - 1
                        accessRepository.updateUserProductCountStatus(user);
+                       status.setProductCount(status.getProductCount() - 1);
                     }
                 }
 
