@@ -42,6 +42,7 @@ public class AccessService {
             }
             int period = status.getRemainedMonth() - Period.between(status.getStartDate(), LocalDate.now()).getDays();
             accessRepository.updateUserMembershipCountStatus(user, period);
+            status.setRemainedMonth(period);
             if(status.getRemainedMonth() > 0) {
                 // 출입 승인
                 if (status.getProductCount() > 0) {

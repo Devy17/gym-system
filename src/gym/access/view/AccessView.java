@@ -66,7 +66,7 @@ public class AccessView {
         if(status.getProductCount() <= 0) {
             System.out.printf("# %s님의 회원권 잔여 일수는 %d일입니다.", user.getUserName(), status.getRemainedMonth());
         } else {
-            System.out.printf("# %s님의 회원권 잔여 일수는 %d일이고, 상품 잔여 횟수는 %d회 입니다.", user.getUserName(), status.getRemainedMonth(), status.getRemainedMonth());
+            System.out.printf("# %s님의 회원권 잔여 일수는 %d일이고, 상품 잔여 횟수는 %d회 입니다.", user.getUserName(), status.getRemainedMonth(), status.getProductCount());
         }
 
     }
