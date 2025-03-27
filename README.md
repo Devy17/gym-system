@@ -59,13 +59,13 @@
 
 [요구사항 정의서](https://docs.google.com/spreadsheets/d/1u56s9X5dFNKIewTSbZ1xqQzytP-0plldXfokaezeUCc/edit?gid=391646514#gid=391646514)
 
-![SRS](SRS.png)
+![SRS](deliverables/SRS.png)
 
-![ERD](ERD.png)
+![ERD](deliverables/ERD.png)
 
 ## 7. WBS (Work Breakdown Structure)
 
-![WBS](WBS.png)
+![WBS](deliverables/WBS.png)
 
 ## 8. 트러블 슈팅 및 한계점
 
@@ -80,12 +80,14 @@
 | 7   | 잔여 리소스 조회 기능 | 추가 구매 결정을 내리기 위한 사전 정보 부족 | 잔여 기간 및 횟수의 조회 기능 추가                       |
 
 ## 9. 스토리 보드 및 화면 명세서
-[스토리 보드](스토리 보드.pdf)
-[화면 명세서](화면 명세서.pdf)
+[스토리보드](deliverables/StoryBoard.pdf)
+
+[화면 명세서](deliverables/WireFrame.pdf)
 
 ## 10. MSA 설계서
-![MSA01](MSA 설계서 01.drawio.png)
-![MSA02](MSA 설계서 02.drawio.png)
+![MSA01](deliverables/MSA01.png)  
+
+![MSA02](deliverables/MSA02.png)
 
 ## 10. 회고
 
