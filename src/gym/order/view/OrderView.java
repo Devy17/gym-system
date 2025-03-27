@@ -9,10 +9,9 @@ import gym.product.view.ProductView;
 import gym.user.domain.User;
 import gym.user.service.UserService;
 import gym.order.domain.Order;
-import gym.status.domain.Status;
-import gym.status.service.StatusService;
+import gym.user.domain.Status;
+import gym.user.service.StatusService;
 
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -148,7 +147,8 @@ public class OrderView {
                     userList.get(i).getPhoneNumber(), userList.get(i).getRegistDate());
         }
 
-        return getUserSelection(userList.size(), "# 회원 번호를 선택하세요: ");
+        int selectNum = getUserSelection(userList.size(), "# 회원 번호를 선택하세요: ");
+        return userList.get(selectNum - 1).getUserId();
     }
 
     /**

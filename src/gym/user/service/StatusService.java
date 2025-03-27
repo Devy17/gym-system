@@ -1,7 +1,7 @@
-package gym.status.service;
+package gym.user.service;
 
-import gym.status.domain.Status;
-import gym.status.repo.StatusRepository;
+import gym.user.domain.Status;
+import gym.user.repo.StatusRepository;
 
 public class StatusService {
 
