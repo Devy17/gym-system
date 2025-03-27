@@ -1,8 +1,10 @@
 package gym.access.repo;
 
 import gym.access.domain.Access;
+import gym.user.domain.Status;
 import gym.user.domain.User;
 import jdbc.DBConnectionManager;
+
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -38,7 +40,8 @@ public class AccessRepository {
         return userList;
     }
 
-    public boolean checkUserStatus(User user) {
+    public Status checkUserStatus(User user) {
+        Status status = null;
         String sql = "SELECT * FROM status s JOIN users u ON s.user_id = u.user_id WHERE s.user_id = ?";
         try (Connection conn = DBConnectionManager.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -46,15 +49,17 @@ public class AccessRepository {
 
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-                int remainedMonth = rs.getInt("remained_month");
-                if(remainedMonth > 0) {
-                    return true;
-                }
+                status = new Status(
+                        rs.getInt("user_id"),
+                        rs.getDate("start_date").toLocalDate(),
+                        rs.getInt("remained_month"),
+                        rs.getInt("product_count")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return status;
     }
 
     public void addAccessData(User user) {
@@ -72,14 +77,33 @@ public class AccessRepository {
 
     public Map<Access, User> searchAccessByDate(String yearStr, String monthStr) {
         Map<Access, User> map = new HashMap<>();
-        String sql = "SELECT * FROM accesses a JOIN user u ON a.user_id = u.user_id WHERE a.access_date LIKE ?";
-        if(Integer.parseInt(monthStr) < 10) {
-            monthStr += "0";
+        String sql = "SELECT * FROM accesses a JOIN users u ON a.user_id = u.user_id " +
+                "WHERE a.access_date BETWEEN TO_DATE(?, 'YYYYMMDD') AND TO_DATE(?, 'YYYYMMDD') - 1 ";
+        int year = Integer.parseInt(yearStr);
+        int month = Integer.parseInt(monthStr);
+
+        String afterYear = "";
+        String afterMonth = "";
+
+        if(month == 12) {
+            afterYear = Integer.toString(++year);
+            afterMonth = "01";
+        } else {
+            afterYear = yearStr;
+            if(month < 10) {
+                monthStr = "0" + month;
+                afterMonth = month < 9 ? "0" + (++month) : "10";
+            }
         }
+
+        String beforeDate = yearStr + monthStr + "01";
+        String afterDate = afterYear + afterMonth + "01";
+
 
         try (Connection conn = DBConnectionManager.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, yearStr + "-" + monthStr + "%");
+            pstmt.setString(1, beforeDate);
+            pstmt.setString(2, afterDate);
 
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
@@ -100,5 +124,32 @@ public class AccessRepository {
         }
 
         return map;
+    }
+
+    public void updateUserProductCountStatus(User user) {
+        String sql = "UPDATE status SET product_count = product_count - 1 WHERE user_id = ?";
+
+        try (Connection conn = DBConnectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, user.getUserId());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateUserMembershipCountStatus(User user, int period) {
+        String sql = "UPDATE status SET remained_month = ? WHERE user_id = ?";
+
+        try (Connection conn = DBConnectionManager.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, user.getUserId());
+            pstmt.setInt(2, period);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

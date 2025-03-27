@@ -1,9 +1,8 @@
 package gym.access.view;
 
 import gym.access.domain.Access;
-import gym.access.service.AccessService;
+import gym.user.domain.Status;
 import gym.user.domain.User;
-import gym.user.service.UserService;
 
 import java.util.List;
 import java.util.Map;
@@ -61,8 +60,15 @@ public class AccessView {
         return null;
     }
 
-    public static void accessSuccessful() {
+    public static void accessSuccessful(User user, Status status) {
         System.out.println("# 출입이 정상적으로 처리되었습니다.");
+
+        if(status.getProductCount() <= 0) {
+            System.out.printf("# %s님의 회원권 잔여 일수는 %d일입니다.", user.getUserName(), status.getRemainedMonth());
+        } else {
+            System.out.printf("# %s님의 회원권 잔여 일수는 %d일이고, 상품 잔여 횟수는 %d회 입니다.", user.getUserName(), status.getRemainedMonth(), status.getProductCount());
+        }
+
     }
 
     public static String searchAccessView() {
@@ -83,7 +89,7 @@ public class AccessView {
     public static void showAccessByDate(Map<Access, User> userMap) {
         for (Access access : userMap.keySet()) {
             User user = userMap.get(access);
-            System.out.printf("# 날짜 : %s, 회원명 %s(%s)", access.getAccessDate().toString(), user.getUserName(), user.getPhoneNumber());
+            System.out.printf("# 날짜 : %s, 회원명 %s(%s)\n", access.getAccessDate().toString(), user.getUserName(), user.getPhoneNumber());
         }
     }
 
@@ -98,5 +104,22 @@ public class AccessView {
                     System.out.println("# 잘못된 입력값입니다. 다시 입력해주세요.\n");
             }
         }
+    }
+
+    public static boolean selectAccessMode() {
+            while (true) {
+            System.out.println("# 출입 목적 선택");
+            System.out.println("# 1. 회원권 출입");
+            System.out.println("# 2. 상품 출입");
+            int input = inputInteger(">>> ");
+
+            switch (input) {
+                case 1: return false;
+                case 2: return true;
+                default:
+                    System.out.println("잘못된 입력값입니다. 다시 입력해주세요.\n");
+            }
+        }
+
     }
 }
