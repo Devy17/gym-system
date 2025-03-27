@@ -55,11 +55,13 @@
 - **출입 관리**: 출입 조회, 등록
 - **회원 상태**: 상태 조회, 등록, 수정
 
-## 6. 요구사항 정의
+## 6. 요구사항 정의 및 ERD
 
 [요구사항 정의서](https://docs.google.com/spreadsheets/d/1u56s9X5dFNKIewTSbZ1xqQzytP-0plldXfokaezeUCc/edit?gid=391646514#gid=391646514)
 
 ![SRS](SRS.png)
+
+![ERD](ERD.png)
 
 ## 7. WBS (Work Breakdown Structure)
 
@@ -77,7 +79,15 @@
 | 6   | 중복 코드 처리        | 유지보수성, 가독성 저하                     | 중복되는 코드들을 메서드 처리                            |
 | 7   | 잔여 리소스 조회 기능 | 추가 구매 결정을 내리기 위한 사전 정보 부족 | 잔여 기간 및 횟수의 조회 기능 추가                       |
 
-### 9. 회고
+## 9. 스토리 보드 및 화면 명세서
+[스토리 보드](스토리 보드.pdf)
+[화면 명세서](화면 명세서.pdf)
+
+## 10. MSA 설계서
+![MSA01](MSA 설계서 01.drawio.png)
+![MSA02](MSA 설계서 02.drawio.png)
+
+## 10. 회고
 
 - 강하늘 :
 - 전유빈
