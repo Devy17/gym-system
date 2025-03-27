@@ -215,11 +215,11 @@ public class OrderView {
         for (Order order : orderList) {
             if (order.getProduct() == null) {
                 System.out.printf("결제 ID | %d, 회원 정보 | %s(%s), 결제 상품 | %s, 담당 직원 | %s\n",
-                        order.getOrderId(), order.getUser().getUserId(), order.getUser().getPhoneNumber(),
+                        order.getOrderId(), order.getUser().getUserName(), order.getUser().getPhoneNumber(),
                         order.getMembership().getPeriod() + "개월", order.getEmployee().getEmployeeName());
             } else {
                 System.out.printf("결제 ID | %d, 회원 정보 | %s(%s), 결제 상품 | %s, %s, 담당 직원 | %s\n",
-                        order.getOrderId(), order.getUser().getUserId(), order.getUser().getPhoneNumber(),
+                        order.getOrderId(), order.getUser().getUserName(), order.getUser().getPhoneNumber(),
                         order.getProduct().getProductName(), order.getMembership().getPeriod() + "개월",
                         order.getEmployee().getEmployeeName());
             }

@@ -180,8 +180,8 @@ public class AppUI {
 
     public static void membershipMenuScreen() {
         System.out.println("\n========= 회원권 메뉴 =========");
-        System.out.println("### 1. 화원권 조회");
-        System.out.println("### 2. 회워권 추가");
+        System.out.println("### 1. 회원권 조회");
+        System.out.println("### 2. 회원권 추가");
         System.out.println("### 3. 이전 화면으로 가기");
         makeLine();
 
