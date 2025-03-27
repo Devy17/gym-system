@@ -10,7 +10,6 @@ import java.util.List;
 
 public class OrderService {
     private final OrderRepository orderRepository = new OrderRepository();
-    private final ProductService productService = new ProductService();
 
     public void purchaseMembership(int userId, int membershipId, int employeeId) {
         boolean result = orderRepository.insertOrder(userId, membershipId, employeeId);
@@ -37,8 +36,4 @@ public class OrderService {
         OrderView.showOrderInfo(orderList);
     }
 
-    public List<Product> getProductOptionService()
-    {
-        return productService.getProductOptions();
-    }
 }

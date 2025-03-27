@@ -11,7 +11,7 @@ import static common.AppUI.inputString;
 
 public class EmployeeService {
 
-    private EmployeeRepository employeeRepository = new EmployeeRepository();
+    private final EmployeeRepository employeeRepository = new EmployeeRepository();
 
     // 직원 정보 조회
     public void getAllEmployees() {
