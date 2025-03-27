@@ -4,6 +4,8 @@ import gym.employee.domain.Employee;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import gym.employee.service.EmployeeService;
 import jdbc.DBConnectionManager;
 import java.sql.*;
 import java.util.Scanner;
@@ -170,4 +172,19 @@ public class EmployeeRepository {
         }
         return employeeList;
     }
+
+    public void updateEmployee2(Employee employee) {
+        String sql = "UPDATE employees SET employee_name = ?, part = ? WHERE employee_id = ?";
+        try (Connection conn = DBConnectionManager.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, employee.getEmployeeName());
+            pstmt.setString(2, employee.getPart());
+            pstmt.setInt(3, employee.getEmployeeId());
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

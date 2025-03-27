@@ -89,7 +89,7 @@ public class EmployeeService {
                 System.out.printf("\n### [%d] 직원의 정보를 수정합니다.\n", selectedEmployee.getEmployeeId());
                 selectedEmployee.setEmployeeName(inputString("# 새로운 직원명: "));
                 selectedEmployee.setPart(inputString("# 새로운 부서명: "));
-                employeeRepository.updateEmployee(selectedEmployee);
+                employeeRepository.updateEmployee2(selectedEmployee);
 
                 System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", selectedEmployee.getEmployeeName());
             } else {
@@ -98,7 +98,7 @@ public class EmployeeService {
                 System.out.printf("\n### [%d] 직원의 정보를 수정합니다.\n", employee.getEmployeeId());
                 employee.setEmployeeName(inputString("# 새로운 직원명: "));
                 employee.setPart(inputString("# 새로운 부서명: "));
-                employeeRepository.updateEmployee(employee);
+                employeeRepository.updateEmployee2(employee);
 
                 System.out.printf("\n### [%s] 정보가 정상적으로 수정되었습니다.\n", employee.getEmployeeName());
             }
