@@ -15,12 +15,13 @@ import java.util.List;
 public class ProductView {
 
     private static final OrderService orderService = new OrderService();
+    private static ProductService productService = new ProductService();
 
     /**
      * 회원권 조회
      */
     public static List<Product> findProductView() {
-        List<Product> ProductOptions = ProductService.getProductOptions();
+        List<Product> ProductOptions = productService.getProductOptions();
 
         for (int i = 1; i <= ProductOptions.size(); i++) {
             Product product = ProductOptions.get(i - 1);
@@ -49,7 +50,7 @@ public class ProductView {
     }
 
     public static void showProductView() {
-        List<Product> productOptions = orderService.getProductOptionService(); // 상품 목록 가져오기
+        List<Product> productOptions = productService.getProductOptions(); // 상품 목록 가져오기
         if (productOptions.isEmpty()) {
             System.out.println("등록된 상품이 없습니다.");
             return;
